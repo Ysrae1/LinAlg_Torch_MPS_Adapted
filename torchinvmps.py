@@ -1,8 +1,8 @@
 import torch
 
-def inv_mps(M, m=1024):
+# Solve inverse by part
 
-    # start_time = time.time()
+def inv_mps(M, m=1024):
     
     n = M.shape[0]
     M = M.to('cpu').to(dtype=torch.float32)

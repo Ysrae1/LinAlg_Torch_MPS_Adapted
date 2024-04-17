@@ -1,6 +1,7 @@
 import torch
 import time
 from torchinvmps import inv_mps
+from LQR_SO import LQRSol_SO
 
 
 class ImMonteCarloYYB:
@@ -140,18 +141,25 @@ if __name__=='__main__':
     t0 = torch.tensor(0.1,dtype = torch.float32, device = device)
 
 
-    n = 50000
+    n = 100000
 
-    sample_size = 2500
+    sample_size = 400
 
-    time_grid_for_MC = torch.linspace(t0,T,n, dtype = torch.float32, device = device)
-    S = torch.randn([n,sample_size,2,2], dtype=torch.float32)
+    time_grid = torch.linspace(t0, T, n, dtype = torch.float32, device = device) # for both MC and Riccati.
+    
+
+    LQR_sol = LQRSol_SO(H, M, sig, C, D, R, T)
+
+    #S1 = torch.randn([n,sample_size,2,2], dtype=torch.float32)
+
+    S = LQR_sol.riccati_solver(time_grid.unsqueeze(0))
+
     X0 = 0.5*torch.ones([1,1,2], dtype=torch.float32, device = device)
 
-    dt = time_grid_for_MC[1:]-time_grid_for_MC[:-1]
+    dt = time_grid[1:]-time_grid[:-1]
 
     multX = - M@torch.linalg.inv(D)@M.T
-    multa = - torch.linalg.inv(D)@M.T
+    multa = - torch.linalg.inv(D)@M.T@S
 
     I = torch.eye(len(X0.squeeze()),dtype = torch.float32, device = device)
 
@@ -172,4 +180,6 @@ if __name__=='__main__':
     e_time = time.time()-s_time
 
    # print(f"MPS 进行了 M（{2*n}x{2*n} 矩阵）的求解（求逆加矩阵乘法），花了 {e_time} 秒, 误差为{torch.sum(torch.abs(X_0_N-X_0_N1))}")
-    print(f"MPS 完成了 M（{2*n}x{2*n} 矩阵）x=b 的求解（求 M_inv 加上矩阵乘法 M_inv @ b {2*n}x{sample_size}向量），\n 总共花了 {e_time} 秒（优化后）")
+    print(f"MPS 完成了 {2*n}x{2*n} 线性方程组 Ax=b 的求解（求 A_inv 加上矩阵乘法 A_inv @ b {2*n}x{sample_size}向量），\n 总共花了 {e_time} 秒（优化后）\n")
+
+    print(f"MPS finished solving the a {2*n}x{2*n} linear equation system Ax=b (solving inverse of A moreover do matrix multiplication M_inv @ b (where b is a{2*n}x{sample_size} vector),\n Totally {e_time} Seconds (Optimized)")
