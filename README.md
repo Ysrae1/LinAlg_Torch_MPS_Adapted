@@ -79,11 +79,20 @@ For the two schemes above, we can derive their forms in matrices.
 Denote the coefficient matrices as follows:
 
 $$
-\begin{align*} I &= \left[\begin{matrix} 1 & 0 \\\ 0 & 1 \end{matrix}\right], & H &= \left[\begin{matrix} H_{11} & H_{12} \\\ H_{21} & H_{22} \end{matrix}\right], & M &= \left[ \begin{matrix} M_{11} & M_{12}\\\ M_{21} & M_{22} \end{matrix}\right], \\\  D^{-1} &= \left[\begin{matrix} D_{11}^{-1} & D_{12}^{-1} \\\ D_{21}^{-1} & D_{22}^{-1}\end{matrix}\right], & {S(\lambda )} &= \left[\begin{matrix} S_{11}(\lambda ) & S_{12}(\lambda ) \\\ S_{21}(\lambda ) & S_{22}(\lambda ) \end{matrix}\right], & \sigma &= \left[\begin{matrix} \sigma _{11} & \sigma _{12} \\\ \sigma _{21} & \sigma _{22} \end{matrix}\right]. \end{align*}
+\begin{align*} I &= \left[\begin{matrix} 1 & 0 \\\ 0 & 1 \end{matrix}\right], & H &= \left[\begin{matrix} H_{11} & H_{12} \\\ H_{21} & H_{22} \end{matrix}\right], & M &= \left[ \begin{matrix} M_{11} & M_{12}\\\ M_{21} & M_{22} \end{matrix}\right], \\\  D^{-1} &= \left[\begin{matrix} D_{11} & D_{12} \\\ D_{21} & D_{22}\end{matrix}\right]^{-1}, & {S(\lambda )} &= \left[\begin{matrix} S_{11}(\lambda ) & S_{12}(\lambda ) \\\ S_{21}(\lambda ) & S_{22}(\lambda ) \end{matrix}\right], & \sigma &= \left[\begin{matrix} \sigma _{11} & \sigma _{12} \\\ \sigma _{21} & \sigma _{22} \end{matrix}\right]. \end{align*}
 $$
 
-
 - Explicit Scheme
+
+$$\begin{align*}
+\left[
+\begin{matrix}
+x_{1,t_{n+1}}^N \\\
+x_{2,t_{n+1}}^N
+\end{matrix}
+\right]
+\end{align*}
+$$
 
 $$\begin{align*}
 \left[
