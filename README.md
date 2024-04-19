@@ -77,7 +77,7 @@ n &= k,\dots,N \text{,} \\\ X_{t_{k}}^N &= x.
 For the two schemes above, we can derive their forms in matrices.
 
 Denote the coefficient matrices as follows:
-$$\begin{align*} I &= \left[\begin{matrix} 1 & 0 \\\ 0 & 1 \end{matrix}\right], & H &= \left[\begin{matrix} H_{11} & H_{12} \\\ H_{21} & H_{22} \end{matrix}\right], & M &= \left[ \begin{matrix} M_{11} & M_{12}\\\ M_{21} & M_{22} \end{matrix}\right], \\\  D^{-1} &= \left[\begin{matrix} D^{-1}_{11} & D^{-1}_{12} \\\ D^{-1}_{21} & D^{-1}_{22}\end{matrix}\right], & S(\lambda) &= \left[\begin{matrix} S(\lambda)_{11} & S(\lambda)_{12} \\\ S(\lambda)_{21} & S(\lambda)_{22} \end{matrix}\right], & \sigma &= \left[\begin{matrix} \sigma_{11} & \sigma_{12} \\\ \sigma_{21} & \sigma_{22} \end{matrix}\right]. \end{align*}$$
+$$\begin{align*} I &= \left[\begin{matrix} 1 & 0 \\\ 0 & 1 \end{matrix}\right], & H &= \left[\begin{matrix} H_{11} & H_{12} \\\ H_{21} & H_{22} \end{matrix}\right], & M &= \left[ \begin{matrix} M_{11} & M_{12}\\\ M_{21} & M_{22} \end{matrix}\right], \\\  D^{-1} &= \left[\begin{matrix} D_{11}^{-1} & D_{12}^{-1} \\\ D_{21}^{-1} & D_{22}^{-1}\end{matrix}\right], & S(\lambda) &= \left[\begin{matrix} S(\lambda)_{11} & S(\lambda)_{12} \\\ S(\lambda)_{21} & S(\lambda)_{22} \end{matrix}\right], & \sigma &= \left[\begin{matrix} \sigma_{11} & \sigma_{12} \\\ \sigma_{21} & \sigma_{22} \end{matrix}\right]. \end{align*}$$
 
 - Explicit Scheme
 
@@ -388,14 +388,14 @@ $$\left[
 x_{1,t_{1}}^N \\\
 x_{2,t_{1}}^N \\\
 x_{1,t_{2}}^N \\\
-x_{2,t_{2}}^N \\\
+x_{2,t_{2}}^N 
 \end{matrix}
 \right] =\left[
 \begin{array}{cccc}
 1 & 0 & 0 & 0\\\
 0 & 1 & 0 & 0\\\
  -1 & 0 & A_{\mathrm{I},2,11} &  A_{\mathrm{I},2,12}\\\
- 0 & -1 & A_{\mathrm{I},2,21} &  A_{\mathrm{I},2,22}\\\
+ 0 & -1 & A_{\mathrm{I},2,21} &  A_{\mathrm{I},2,22}
 \end{array}
 \right]^{-1}
 \left[
@@ -403,7 +403,7 @@ x_{2,t_{2}}^N \\\
 B_{\mathrm{I},1,1} \\\
 B_{\mathrm{I},1,2} \\\
 B_{\mathrm{I},2,1} \\\
-B_{\mathrm{I},2,2} \\\
+B_{\mathrm{I},2,2} 
 \end{matrix}
 \right].$$
 
@@ -431,7 +431,6 @@ X^{N,1}\\\
 \\\
 \\\
 \\\
-
 \end{matrix} \right] & 
 \left[\begin{matrix} 
 \\\
@@ -446,7 +445,6 @@ X^{N,2}\\\
 \\\
 \\\
 \\\
-
 \end{matrix} \right] & \dots&
 \left[\begin{matrix} 
 \\\
@@ -461,7 +459,6 @@ X^{N,\texttt{sample\_size}}\\\
 \\\
 \\\
 \\\
-
 \end{matrix} \right]
 \end{matrix}
 \right],
