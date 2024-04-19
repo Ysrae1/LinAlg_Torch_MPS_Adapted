@@ -43,8 +43,7 @@ $$v(t,x) = x^{\top}S(t)x + \int_t^T \mathrm{tr}(\sigma\sigma^{\top}S(r))dr\text{
 
 The function $S(t)$ in the expression of the value function above is the solution of Riccati ODE 
 
-$$\begin{align*} \frac{dS(r)}{dr} &= -(S(r)H+H^{\top} S(r)) + S(r)MD^{-1}M^{\top}S(r) - C ,r \in [t,T] \text{,} \\\
-S(T) & =  R \text{.}\end{align*} $$
+$$\begin{align*} \frac{dS(r)}{dr} &= -(S(r)H+H^{\top} S(r)) + S(r)MD^{-1}M^{\top}S(r) - C ,r \in [t,T] \text{,} \\\ S(T) & =  R \text{.}\end{align*} $$
 
 #### Optimal Control
 
@@ -63,17 +62,14 @@ Substituting the optimal control $a(t,x) = -D^{-1}M^{\top}S(t)x$ back to the dyn
 - Explicit Scheme
 
 $$\begin{align*}
-X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n}}^N-MD^{-1}M^{\top}S(t_n)X_{t_{n}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\
-n &= k,\dots,N \text{,} \\\
-X_{t_{k}}^N &= x.
+X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n}}^N-MD^{-1}M^{\top}S(t_n)X_{t_{n}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\ n &= k,\dots,N \text{,} \\\ X_{t_{k}}^N &= x.
 \end{align*}$$
 
 - Implicit Scheme
 
 $$\begin{align*}
 X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n+1}}^N-MD^{-1}M^{\top}S(t_{n+1})X_{t_{n+1}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\
-n &= k,\dots,N \text{,} \\\
-X_{t_{k}}^N &= x.
+n &= k,\dots,N \text{,} \\\ X_{t_{k}}^N &= x.
 \end{align*}$$
 
 #### Iteration Equation System in Matrix Form
@@ -81,28 +77,7 @@ X_{t_{k}}^N &= x.
 For the two schemes above, we can derive their forms in matrices.
 
 Denote the coefficient matrices as follows:
-$$\begin{align*}
-I &= \left[\begin{matrix}
-1 & 0 \\\
-0 & 1
-\end{matrix}\right], & H &= \left[\begin{matrix}
-H_{11} & H_{12} \\\
-H_{21} & H_{22}
-\end{matrix}\right], & M &= \left[
-\begin{matrix}
-M_{11} & M_{12} \\\
-M_{21} & M_{22}
-\end{matrix}\right], \\\ 
-D^{-1} &= \left[\begin{matrix}
-D^{-1}_{11} & D^{-1}_{12} \\\
-D^{-1}_{21} & D^{-1}_{22}\end{matrix}\right], & S(\lambda) &= \left[\begin{matrix}
-S(\lambda)_{11} & S(\lambda)_{12} \\\
-S(\lambda)_{21} & S(\lambda)_{22}
-\end{matrix}\right], & \sigma &= \left[\begin{matrix}
-\sigma_{11} & \sigma_{12} \\\
-\sigma_{21} & \sigma_{22}
-\end{matrix}\right].
-\end{align*}$$
+$$\begin{align*} I &= \left[\begin{matrix} 1 & 0 \\\ 0 & 1 \end{matrix}\right], & H &= \left[\begin{matrix} H_{11} & H_{12} \\\ H_{21} & H_{22} \end{matrix}\right], & M &= \left[ \begin{matrix} M_{11} & M_{12}\\\ M_{21} & M_{22} \end{matrix}\right], \\\  D^{-1} &= \left[\begin{matrix} D^{-1}_{11} & D^{-1}_{12} \\\ D^{-1}_{21} & D^{-1}_{22}\end{matrix}\right], & S(\lambda) &= \left[\begin{matrix} S(\lambda)_{11} & S(\lambda)_{12} \\\ S(\lambda)_{21} & S(\lambda)_{22} \end{matrix}\right], & \sigma &= \left[\begin{matrix} \sigma_{11} & \sigma_{12} \\\ \sigma_{21} & \sigma_{22} \end{matrix}\right]. \end{align*}$$
 
 - Explicit Scheme
 
