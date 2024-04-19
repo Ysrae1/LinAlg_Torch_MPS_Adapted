@@ -43,7 +43,7 @@ $$v(t,x) = x^{\top}S(t)x + \int_t^T \mathrm{tr}(\sigma\sigma^{\top}S(r))dr\text{
 
 The function $S(t)$ in the expression of the value function above is the solution of Riccati ODE 
 
-$$\begin{align*} \frac{dS(r)}{dr} &= -(S(r)H+H^{\top} S(r)) + S(r)MD^{-1}M^{\top}S(r) - C ,r \in [t,T] \text{,} \\
+$$\begin{align*} \frac{dS(r)}{dr} &= -(S(r)H+H^{\top} S(r)) + S(r)MD^{-1}M^{\top}S(r) - C ,r \in [t,T] \text{,} \\\
 S(T) & =  R \text{.}\end{align*} $$
 
 #### Optimal Control
@@ -63,16 +63,16 @@ Substituting the optimal control $a(t,x) = -D^{-1}M^{\top}S(t)x$ back to the dyn
 - Explicit Scheme
 
 $$\begin{align*}
-X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n}}^N-MD^{-1}M^{\top}S(t_n)X_{t_{n}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\
-n &= k,\dots,N \text{,} \\
+X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n}}^N-MD^{-1}M^{\top}S(t_n)X_{t_{n}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\
+n &= k,\dots,N \text{,} \\\
 X_{t_{k}}^N &= x.
 \end{align*}$$
 
 - Implicit Scheme
 
 $$\begin{align*}
-X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n+1}}^N-MD^{-1}M^{\top}S(t_{n+1})X_{t_{n+1}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\
-n &= k,\dots,N \text{,} \\
+X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n+1}}^N-MD^{-1}M^{\top}S(t_{n+1})X_{t_{n+1}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\
+n &= k,\dots,N \text{,} \\\
 X_{t_{k}}^N &= x.
 \end{align*}$$
 
@@ -83,23 +83,23 @@ For the two schemes above, we can derive their forms in matrices.
 Denote the coefficient matrices as follows:
 $$\begin{align*}
 I &= \left[\begin{matrix}
-1 & 0 \\
+1 & 0 \\\
 0 & 1
 \end{matrix}\right], & H &= \left[\begin{matrix}
-H_{11} & H_{12} \\
+H_{11} & H_{12} \\\
 H_{21} & H_{22}
 \end{matrix}\right], & M &= \left[
 \begin{matrix}
-M_{11} & M_{12} \\
+M_{11} & M_{12} \\\
 M_{21} & M_{22}
-\end{matrix}\right], \\ 
+\end{matrix}\right], \\\ 
 D^{-1} &= \left[\begin{matrix}
-D^{-1}_{11} & D^{-1}_{12} \\
+D^{-1}_{11} & D^{-1}_{12} \\\
 D^{-1}_{21} & D^{-1}_{22}\end{matrix}\right], & S(\lambda) &= \left[\begin{matrix}
-S(\lambda)_{11} & S(\lambda)_{12} \\
+S(\lambda)_{11} & S(\lambda)_{12} \\\
 S(\lambda)_{21} & S(\lambda)_{22}
 \end{matrix}\right], & \sigma &= \left[\begin{matrix}
-\sigma_{11} & \sigma_{12} \\
+\sigma_{11} & \sigma_{12} \\\
 \sigma_{21} & \sigma_{22}
 \end{matrix}\right].
 \end{align*}$$
@@ -109,32 +109,32 @@ S(\lambda)_{21} & S(\lambda)_{22}
 $$\begin{align*}
 \left[
 \begin{matrix}
-x_{1,t_{n+1}}^N \\
+x_{1,t_{n+1}}^N \\\
 x_{2,t_{n+1}}^N
 \end{matrix}
 \right]
 &=
 \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right]\left[
 \begin{matrix}
-x_{1,t_{n}}^N \\
+x_{1,t_{n}}^N \\\
 x_{2,t_{n}}^N
 \end{matrix}
 \right] + \sqrt{\tau} \sigma \left[
 \begin{matrix}
-z_{1,t_{n}}^N \\
+z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
 \end{matrix}
-\right], \\
-n &= k,\dots,N \text{,} \\
+\right], \\\
+n &= k,\dots,N \text{,} \\\
 
 \left[
 \begin{matrix}
-x_{1,t_{k}}^N \\
+x_{1,t_{k}}^N \\\
 x_{2,t_{k}}^N
 \end{matrix}
 \right] & = \left[
 \begin{matrix}
-x_{1} \\
+x_{1} \\\
 x_{2}
 \end{matrix}
 \right],
@@ -148,15 +148,15 @@ Denote new coefficients matrix for combination:
 $$\begin{align*}
 A_{\mathrm{E},n} & = \left[
 \begin{matrix}
-A_{\mathrm{E},n,11} & A_{\mathrm{E},n,12}\\
+A_{\mathrm{E},n,11} & A_{\mathrm{E},n,12}\\\
 A_{\mathrm{E},n,21} & A_{\mathrm{E},n,22}
 \end{matrix}
 \right]
 
-\coloneqq \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right],\ \ n = k,\dots,N \text{,}\\
+\coloneqq \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right],\ \ n = k,\dots,N \text{,}\\\
 B_{\mathrm{E},n} & = \left[
 \begin{matrix}
-B_{\mathrm{E},n,1} \\
+B_{\mathrm{E},n,1} \\\
 B_{\mathrm{E},n,2}
 \end{matrix}
 \right] \coloneqq 
@@ -164,17 +164,17 @@ B_{\mathrm{E},n,2}
 \left\{ 
 \begin{aligned}
 &&\left[\begin{matrix}
-x_{1} \\
+x_{1} \\\
 x_{2}
 \end{matrix}
-\right]& & &\mathrm{for } \ \ n = k \\
+\right]& & &\mathrm{for } \ \ n = k \\\
 &\tau&\left[\begin{matrix}
-\sigma_{11} & \sigma_{12} \\
+\sigma_{11} & \sigma_{12} \\\
 \sigma_{21} & \sigma_{22}
 \end{matrix}
 \right]&\left[
 \begin{matrix}
-z_{1,t_{n}}^N \\
+z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
 \end{matrix}
 \right]& & \mathrm{for} \ \ n = k+1,\dots,N
@@ -191,14 +191,14 @@ where
 $$\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} = 
 \left[
 \begin{matrix}
-1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
-0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
-- A_{\mathrm{E},1,11} & - A_{\mathrm{E},1,12} & 1 & 0 & 0 & 0 &\dots & 0 & 0 & 0 & 0\\
-- A_{\mathrm{E},1,21} & - A_{\mathrm{E},1,22} & 0 & 1 & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\
-0 & 0 & - A_{\mathrm{E},2,11} & - A_{\mathrm{E},2,12} & 1 & 0 & \dots & 0 & 0 & 0 & 0\\
-0 & 0 & - A_{\mathrm{E},2,21} & - A_{\mathrm{E},2,22} & 0 & 1 & \dots & 0 & 0 & 0 & 0\\
-\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\
-0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,11} & - A_{\mathrm{E},N-1,12} & 1 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
+0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
+- A_{\mathrm{E},1,11} & - A_{\mathrm{E},1,12} & 1 & 0 & 0 & 0 &\dots & 0 & 0 & 0 & 0\\\
+- A_{\mathrm{E},1,21} & - A_{\mathrm{E},1,22} & 0 & 1 & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\\
+0 & 0 & - A_{\mathrm{E},2,11} & - A_{\mathrm{E},2,12} & 1 & 0 & \dots & 0 & 0 & 0 & 0\\\
+0 & 0 & - A_{\mathrm{E},2,21} & - A_{\mathrm{E},2,22} & 0 & 1 & \dots & 0 & 0 & 0 & 0\\\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\\
+0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,11} & - A_{\mathrm{E},N-1,12} & 1 & 0 \\\
 0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,21} & - A_{\mathrm{E},N-1,22} & 0 & 1
 \end{matrix}
 \right],$$
@@ -206,30 +206,30 @@ $$\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} =
 $$\mathbb{X}^{(2N \times 1)} = 
 \left[
 \begin{matrix}
-x_{1,t_{1}}^N \\
-x_{2,t_{1}}^N \\
-x_{1,t_{2}}^N \\
-x_{2,t_{2}}^N \\
-x_{1,t_{3}}^N \\
-x_{2,t_{3}}^N \\
-\vdots\\
-x_{1,t_{N}}^N \\
-x_{2,t_{N}}^N \\
+x_{1,t_{1}}^N \\\
+x_{2,t_{1}}^N \\\
+x_{1,t_{2}}^N \\\
+x_{2,t_{2}}^N \\\
+x_{1,t_{3}}^N \\\
+x_{2,t_{3}}^N \\\
+\vdots\\\
+x_{1,t_{N}}^N \\\
+x_{2,t_{N}}^N 
 \end{matrix}
 \right],
 \qquad \qquad
 \mathbb{B}_{\mathrm{E}}^{(2N \times 1)} = 
 \left[
 \begin{matrix}
-B_{\mathrm{E},1,1} \\
-B_{\mathrm{E},1,2} \\
-B_{\mathrm{E},2,1} \\
-B_{\mathrm{E},2,2} \\
-B_{\mathrm{E},3,1} \\
-B_{\mathrm{E},3,2} \\
-\vdots\\
-B_{\mathrm{E},N,1} \\
-B_{\mathrm{E},N,2} \\
+B_{\mathrm{E},1,1} \\\
+B_{\mathrm{E},1,2} \\\
+B_{\mathrm{E},2,1} \\\
+B_{\mathrm{E},2,2} \\\
+B_{\mathrm{E},3,1} \\\
+B_{\mathrm{E},3,2} \\\
+\vdots\\\
+B_{\mathrm{E},N,1} \\\
+B_{\mathrm{E},N,2} 
 \end{matrix}
 \right],$$
 
@@ -239,32 +239,32 @@ B_{\mathrm{E},N,2} \\
 $$\begin{align*}
 \left[I - \tau[H-MD^{-1}M^{\top}S(t_n)]\right]\left[
 \begin{matrix}
-x_{1,t_{n+1}}^N \\
+x_{1,t_{n+1}}^N \\\
 x_{2,t_{n+1}}^N
 \end{matrix}
 \right]
 &=
 \left[
 \begin{matrix}
-x_{1,t_{n}}^N \\
+x_{1,t_{n}}^N \\\
 x_{2,t_{n}}^N
 \end{matrix}
 \right] + \sqrt{\tau} \sigma \left[
 \begin{matrix}
-z_{1,t_{n}}^N \\
+z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
 \end{matrix}
-\right], \\
-n &= k,\dots,N \text{,} \\
+\right], \\\
+n &= k,\dots,N \text{,} \\\
 
 \left[
 \begin{matrix}
-x_{1,t_{k}}^N \\
+x_{1,t_{k}}^N \\\
 x_{2,t_{k}}^N
 \end{matrix}
 \right] & = \left[
 \begin{matrix}
-x_{1} \\
+x_{1} \\\
 x_{2}
 \end{matrix}
 \right],
@@ -278,15 +278,15 @@ Denote new coefficients matrix for combination:
 $$\begin{align*}
 A_{\mathrm{I},n} & = \left[
 \begin{matrix}
-A_{\mathrm{I},n,11} & A_{\mathrm{I},n,12}\\
+A_{\mathrm{I},n,11} & A_{\mathrm{I},n,12}\\\
 A_{\mathrm{I},n,21} & A_{\mathrm{I},n,22}
 \end{matrix}
 \right]
-\coloneqq \left[I - \tau[H-MD^{-1}M^{\top}S(t_n)]\right], n &= k,\dots,N , \\
+\coloneqq \left[I - \tau[H-MD^{-1}M^{\top}S(t_n)]\right], n &= k,\dots,N , \\\
 
 B_{\mathrm{I},n} & = \left[
 \begin{matrix}
-B_{\mathrm{I},n,1} \\
+B_{\mathrm{I},n,1} \\\
 B_{\mathrm{I},n,2}
 \end{matrix}
 \right] \coloneqq 
@@ -294,17 +294,17 @@ B_{\mathrm{I},n,2}
 \left\{ 
 \begin{aligned}
 &&\left[\begin{matrix}
-x_{1} \\
+x_{1} \\\
 x_{2}
 \end{matrix}
-\right]& & &\mathrm{for } \ \ n = k \\
+\right]& & &\mathrm{for } \ \ n = k \\\
 &\tau&\left[\begin{matrix}
-\sigma_{11} & \sigma_{12} \\
+\sigma_{11} & \sigma_{12} \\\
 \sigma_{21} & \sigma_{22}
 \end{matrix}
 \right]&\left[
 \begin{matrix}
-z_{1,t_{n}}^N \\
+z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
 \end{matrix}
 \right]& & \mathrm{for} \ \ n = k+1,\dots,N
@@ -322,14 +322,14 @@ where
 $$\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)} = 
 \left[
 \begin{matrix}
-1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
-0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
- -1 & 0 & A_{\mathrm{I},2,11} &  A_{\mathrm{I},2,12} & 0 & 0 &\dots & 0 & 0 & 0 & 0\\
- 0 & -1 & A_{\mathrm{I},2,21} &  A_{\mathrm{I},2,22} & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\
-0 & 0 & -1 & 0 & A_{\mathrm{I},3,11} & A_{\mathrm{I},3,12} &  \dots & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & -1 & A_{\mathrm{I},3,21} &  A_{\mathrm{I},3,22} & \dots & 0 & 0 & 0 & 0\\
-\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\
-0 & 0 & 0 & 0 & 0 & 0 & \dots & -1 & 0 & A_{\mathrm{I},N,11} & A_{\mathrm{I},N,12}\\
+1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
+0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
+ -1 & 0 & A_{\mathrm{I},2,11} &  A_{\mathrm{I},2,12} & 0 & 0 &\dots & 0 & 0 & 0 & 0\\\
+ 0 & -1 & A_{\mathrm{I},2,21} &  A_{\mathrm{I},2,22} & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\\
+0 & 0 & -1 & 0 & A_{\mathrm{I},3,11} & A_{\mathrm{I},3,12} &  \dots & 0 & 0 & 0 & 0 \\\
+0 & 0 & 0 & -1 & A_{\mathrm{I},3,21} &  A_{\mathrm{I},3,22} & \dots & 0 & 0 & 0 & 0\\\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\\
+0 & 0 & 0 & 0 & 0 & 0 & \dots & -1 & 0 & A_{\mathrm{I},N,11} & A_{\mathrm{I},N,12}\\\
 0 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & -1 & A_{\mathrm{I},N,21} & A_{\mathrm{I},N,22}
 \end{matrix}
 \right],$$
@@ -337,30 +337,30 @@ $$\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)} =
 $$\mathbb{X}^{(2N \times 1)} = 
 \left[
 \begin{matrix}
-x_{1,t_{1}}^N \\
-x_{2,t_{1}}^N \\
-x_{1,t_{2}}^N \\
-x_{2,t_{2}}^N \\
-x_{1,t_{3}}^N \\
-x_{2,t_{3}}^N \\
-\vdots\\
-x_{1,t_{N}}^N \\
-x_{2,t_{N}}^N \\
+x_{1,t_{1}}^N \\\
+x_{2,t_{1}}^N \\\
+x_{1,t_{2}}^N \\\
+x_{2,t_{2}}^N \\\
+x_{1,t_{3}}^N \\\
+x_{2,t_{3}}^N \\\
+\vdots\\\
+x_{1,t_{N}}^N \\\
+x_{2,t_{N}}^N 
 \end{matrix}
 \right],
 \qquad \qquad
 \mathbb{B}_{\mathrm{I}}^{(2N \times 1)} =
 \left[
 \begin{matrix}
-B_{\mathrm{I},1,1} \\
-B_{\mathrm{I},1,2} \\
-B_{\mathrm{I},2,1} \\
-B_{\mathrm{I},2,2} \\
-B_{\mathrm{I},3,1} \\
-B_{\mathrm{I},3,2} \\
-\vdots\\
-B_{\mathrm{I},N,1} \\
-B_{\mathrm{I},N,2} \\
+B_{\mathrm{I},1,1} \\\
+B_{\mathrm{I},1,2} \\\
+B_{\mathrm{I},2,1} \\\
+B_{\mathrm{I},2,2} \\\
+B_{\mathrm{I},3,1} \\\
+B_{\mathrm{I},3,2} \\\
+\vdots\\\
+B_{\mathrm{I},N,1} \\\
+B_{\mathrm{I},N,2} 
 \end{matrix}
 \right].$$
 
@@ -374,14 +374,14 @@ In general, matrix inversion by partition can be expressed as:
 
 $$\left[
 \begin{matrix}
-\Delta & \Lambda \\
+\Delta & \Lambda \\\
 \Xi & \Eta
 \end{matrix}
 \right]^{-1} 
 =
 \left[
 \begin{matrix}
-\Delta^{-1}+\Delta^{-1}\Lambda( \Eta - \Xi\Delta^{-1} \Lambda )^{-1} \Xi \Delta^{-1} & \Delta^{-1}\Lambda(\Eta - \Xi\Delta^{-1}\Lambda)^{-1} \\
+\Delta^{-1}+\Delta^{-1}\Lambda( \Eta - \Xi\Delta^{-1} \Lambda )^{-1} \Xi \Delta^{-1} & \Delta^{-1}\Lambda(\Eta - \Xi\Delta^{-1}\Lambda)^{-1} \\\
 -(\Eta - \Xi \Delta^{-1} \Lambda)^{-1}\Xi \Delta^{-1} & (\Eta - \Xi \Delta^{-1} \Lambda)^{-1}
 \end{matrix}
 \right],$$
@@ -392,43 +392,43 @@ which means we can first compute $\Delta^{-1}$, then solve the sub-inversion $(\
 An ideal way to partition the workload at a higher level is to consider the characteristics of the problem itself, and for each time take the upper left square part with the row number to the multiple of the dimension of $X_t$. Take the $\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)}$ for instance. We can partition it as below,
 $$\left[
 \begin{array}{cccc|c}
-1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
-0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
- -1 & 0 & A_{\mathrm{I},2,11} &  A_{\mathrm{I},2,12} & 0 & 0 &\dots & 0 & 0 & 0 & 0\\
- 0 & -1 & A_{\mathrm{I},2,21} &  A_{\mathrm{I},2,22} & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
+0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
+ -1 & 0 & A_{\mathrm{I},2,11} &  A_{\mathrm{I},2,12} & 0 & 0 &\dots & 0 & 0 & 0 & 0\\\
+ 0 & -1 & A_{\mathrm{I},2,21} &  A_{\mathrm{I},2,22} & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\\
  \hline
-0 & 0 & -1 & 0 & A_{\mathrm{I},3,11} & A_{\mathrm{I},3,12} &  \dots & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & -1 & A_{\mathrm{I},3,21} &  A_{\mathrm{I},3,22} & \dots & 0 & 0 & 0 & 0\\
-\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\
-0 & 0 & 0 & 0 & 0 & 0 & \dots & -1 & 0 & A_{\mathrm{I},N,11} & A_{\mathrm{I},N,12}\\
+0 & 0 & -1 & 0 & A_{\mathrm{I},3,11} & A_{\mathrm{I},3,12} &  \dots & 0 & 0 & 0 & 0 \\\
+0 & 0 & 0 & -1 & A_{\mathrm{I},3,21} &  A_{\mathrm{I},3,22} & \dots & 0 & 0 & 0 & 0\\\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\\
+0 & 0 & 0 & 0 & 0 & 0 & \dots & -1 & 0 & A_{\mathrm{I},N,11} & A_{\mathrm{I},N,12}\\\
 0 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & -1 & A_{\mathrm{I},N,21} & A_{\mathrm{I},N,22}
 \end{array}
 \right]
-.\\$$
+.\\\$$
 
 Next, we solve the first upper-left square problem by solving its inversion by block inversion. Then, we obtain the first $(2 \times 1)$ section of $\mathbb{X}^{(2N \times 1)}$ by
 
 $$\left[
 \begin{matrix}
-x_{1,t_{1}}^N \\
-x_{2,t_{1}}^N \\
-x_{1,t_{2}}^N \\
-x_{2,t_{2}}^N \\
+x_{1,t_{1}}^N \\\
+x_{2,t_{1}}^N \\\
+x_{1,t_{2}}^N \\\
+x_{2,t_{2}}^N \\\
 \end{matrix}
 \right] =\left[
 \begin{array}{cccc}
-1 & 0 & 0 & 0\\
-0 & 1 & 0 & 0\\
- -1 & 0 & A_{\mathrm{I},2,11} &  A_{\mathrm{I},2,12}\\
- 0 & -1 & A_{\mathrm{I},2,21} &  A_{\mathrm{I},2,22}\\
+1 & 0 & 0 & 0\\\
+0 & 1 & 0 & 0\\\
+ -1 & 0 & A_{\mathrm{I},2,11} &  A_{\mathrm{I},2,12}\\\
+ 0 & -1 & A_{\mathrm{I},2,21} &  A_{\mathrm{I},2,22}\\\
 \end{array}
 \right]^{-1}
 \left[
 \begin{matrix}
-B_{\mathrm{I},1,1} \\
-B_{\mathrm{I},1,2} \\
-B_{\mathrm{I},2,1} \\
-B_{\mathrm{I},2,2} \\
+B_{\mathrm{I},1,1} \\\
+B_{\mathrm{I},1,2} \\\
+B_{\mathrm{I},2,1} \\\
+B_{\mathrm{I},2,2} \\\
 \end{matrix}
 \right].$$
 
@@ -444,49 +444,49 @@ $$\mathbb{X}^{(2N \times \texttt{sample\_size})} =
 \left[
 \begin{matrix}
 \left[\begin{matrix} 
-\\
-\\
-\\
-\\
-\\
-\\
-X^{N,1}\\
-\\
-\\
-\\
-\\
-\\
-\\
+\\\
+\\\
+\\\
+\\\
+\\\
+\\\
+X^{N,1}\\\
+\\\
+\\\
+\\\
+\\\
+\\\
+
 \end{matrix} \right] & 
 \left[\begin{matrix} 
-\\
-\\
-\\
-\\
-\\
-\\
-X^{N,2}\\
-\\
-\\
-\\
-\\
-\\
-\\
+\\\
+\\\
+\\\
+\\\
+\\\
+\\\
+X^{N,2}\\\
+\\\
+\\\
+\\\
+\\\
+\\\
+
 \end{matrix} \right] & \dots&
 \left[\begin{matrix} 
-\\
-\\
-\\
-\\
-\\
-\\
-X^{N,\texttt{sample\_size}}\\
-\\
-\\
-\\
-\\
-\\
-\\
+\\\
+\\\
+\\\
+\\\
+\\\
+\\\
+X^{N,\texttt{sample\_size}}\\\
+\\\
+\\\
+\\\
+\\\
+\\\
+
 \end{matrix} \right]
 \end{matrix}
 \right],
@@ -495,49 +495,45 @@ X^{N,\texttt{sample\_size}}\\
 \left[
 \begin{matrix}
 \left[\begin{matrix} 
-\\
-\\
-\\
-\\
-\\
-\\
-B_{\mathrm{I}}^{N,1}\\
-\\
-\\
-\\
-\\
-\\
-\\
+\\\
+\\\
+\\\
+\\\
+\\\
+\\\
+B_{\mathrm{I}}^{N,1}\\\
+\\\
+\\\
+\\\
+\\\
+\\\
 \end{matrix} \right] & 
 \left[\begin{matrix} 
-\\
-\\
-\\
-\\
-\\
-\\
-B_{\mathrm{I}}^{N,2}\\
-\\
-\\
-\\
-\\
-\\
-\\
+\\\
+\\\
+\\\
+\\\
+\\\
+B_{\mathrm{I}}^{N,2}\\\
+\\\
+\\\
+\\\
+\\\
+\\\
 \end{matrix} \right] & \dots&
 \left[\begin{matrix} 
-\\
-\\
-\\
-\\
-\\
-\\
-B_{\mathrm{I}}^{N,\texttt{sample\_size}}\\
-\\
-\\
-\\
-\\
-\\
-\\
+\\\
+\\\
+\\\
+\\\
+\\\
+\\\
+B_{\mathrm{I}}^{N,\texttt{sample\_size}}\\\
+\\\
+\\\
+\\\
+\\\
+\\\
 \end{matrix} \right]
 \end{matrix}
 \right].$$
