@@ -4,10 +4,9 @@ import time
 from datetime import datetime
 from torchinvmps import inv_mps
 from LQR_SO import LQRSol_SO
-from mem_display import mem_display
 
 class ImMonteCarloYYB:
-    def __init__(self, A, t_0, X_0, T, n, dt, sig, sample_size, scheme, comp_step_limit = 2048, device = 'mps'):
+    def __init__(self, A, t_0, X_0, T, n, dt, sig, sample_size, scheme,device, comp_step_limit = 2048):
 
         self.A = A
         self.t_0 = t_0
@@ -58,7 +57,6 @@ class ImMonteCarloYYB:
             self.A_l[0::2] = l_A_subs_f       
 
             self.negsub = torch.clone(diagA)
-
     
     def b_solve(self, negsub, A_u, A_l, diagAA, len_b, dt, X_0, AA_0):
 
@@ -128,7 +126,7 @@ class ImMonteCarloYYB:
 
             X_0_N = (inv_mps(AA).to(self.device)@b)
 
-            AA_0 = - torch.eye(dim)
+            AA_0 = - torch.eye(dim ,dtype = torch.float32, device = self.device)
 
             if (self.scheme == 'ex')and (negsub[-dim:].numel() != 0) :
 
@@ -203,13 +201,17 @@ class ImMonteCarloYYB:
 
 if __name__=='__main__':
 
+    # Initialization
+
     device = 'cpu'
+
+    device_MC = 'mps'
 
     scheme = 'im'
 
     H = torch.tensor([[0.9, 0.8], [-0.6, 0.9]], dtype=torch.float32, device = device)
     M = torch.tensor([[0.5,0.7], [0.3,1.0]], dtype=torch.float32, device = device)
-    sig = torch.tensor([[0.4,0.8],[1,0.5]], dtype=torch.float32, device = device) 
+    sig = torch.tensor([[0.4,0.2],[0.1,0.9]], dtype=torch.float32, device = device) 
     C = torch.tensor([[1.6, 0.0], [0.0, 1.1]], dtype=torch.float32, device = device) 
     D = torch.tensor([[0.5, 0.0], [0.0, 0.7]], dtype=torch.float32, device = device)  
     R = torch.tensor([[0.9, 0.0], [0.0, 1.0]], dtype=torch.float32, device = device)  
@@ -219,27 +221,31 @@ if __name__=='__main__':
 
     n = 5000
 
-    sample_size = 100000
+    sample_size = 25000
+
+    Runs = 12
 
     time_grid = torch.linspace(t0, T, n, dtype = torch.float32, device = device) # for both MC and Riccati.
 
-    print(f"开始 LQR solver 初始化 ... ")
+    width = os.get_terminal_size().columns
+
+    print("开始 LQR solver 初始化 ...", end=' ')
 
     s_time = time.time()
 
-    LQR_sol = LQRSol_SO(H, M, sig, C, D, R, T, n, 'euler')
+    LQR_sol = LQRSol_SO(H, M, sig, C, D, R, T, n, 'euler',device = device)
 
-    print(f"完成初始化。\n总共花了 {time.time() - s_time} 秒（优化后）\n")
+    print(f"({time.time() - s_time :.6f} 秒) 完成初始化。\n")
     
-    print(f"开始计算 S ... ")
+    print("开始计算 S ...", end=' ')
 
     s_time = time.time()
 
     S = LQR_sol.riccati_solver(time_grid.unsqueeze(0))
 
-    print(f"完成计算。\n总共花了 {time.time() - s_time} 秒（优化后）\n")
+    print(f"({time.time() - s_time :.6f} 秒) 完成计算。\n")
 
-    X0 = 0.5*torch.ones([1,1,2], dtype=torch.float32, device = device)
+    X0 = 1*torch.ones([1,1,2], dtype=torch.float32, device = device)
 
     dt = time_grid[1:]-time_grid[:-1]
 
@@ -250,21 +256,18 @@ if __name__=='__main__':
 
     if scheme == 'im':
         A = (I - dt.unsqueeze(-1).unsqueeze(-1)*(H + multX[:,1:]))
-
     if scheme == 'ex':
         A = (I + dt.unsqueeze(-1).unsqueeze(-1)*(H + multX[:,:-1]))
-
-    Runs = 5
 
     sim_time = datetime.now()
 
     time_str = sim_time.strftime("%Y%m%d_%H%M%S")
 
-    path = "simulation_"+time_str+"/"
+    path = "simulation_on_"+device_MC+'_'+time_str+"/"
 
     os.makedirs(path, exist_ok=True)
 
-    print(f"开始 Monte Carlo 模拟，(求解线性方程组 Ax=b) ... ")
+    print(f"在 {device_MC} 上开始 Monte Carlo 模拟，时间步为 {n} , 样本量为 {sample_size} . (求解线性方程组 Ax=b) ... \n")
 
     s_time = time.time()
 
@@ -272,9 +275,16 @@ if __name__=='__main__':
 
         s_i_time = time.time()
 
-        ImMCSim = ImMonteCarloYYB(A,t0,X0,T,n,dt,sig,sample_size,scheme=scheme,device=device)
+        A_MC = A.to(device_MC)
+        t0_MC = t0.to(device_MC)
+        X0_MC = X0.to(device_MC)
+        T_MC = T.to(device_MC)
+        dt_MC = dt.to(device_MC)
+        sig_MC = sig.to(device_MC)
 
-        AA_0 = - torch.eye(ImMCSim.X0s.shape[0])
+        ImMCSim = ImMonteCarloYYB(A_MC,t0_MC,X0_MC,T_MC,n,dt_MC,sig_MC,sample_size,scheme=scheme,device=device_MC)
+
+        AA_0 = - torch.eye(ImMCSim.X0s.shape[0],dtype = torch.float32, device = device_MC)
 
         X_0_N1,AA_0 = ImMCSim.b_solve(ImMCSim.negsub,
                                 ImMCSim.A_u, 
@@ -284,29 +294,25 @@ if __name__=='__main__':
                                 ImMCSim.dt,
                                 ImMCSim.X0s,
                                 AA_0)
-        
-        # print('X1',X_0_N1)
-    
-        # X_0_N2 = ImMCSim.iter_solve(H,multX)
 
-        # print('X2',X_0_N2)
 
-        print(f'Run {run+1}/{Runs} has been finished, on which {time.time() - s_i_time} seconds are spent.')
+        print(f'Run {run+1}/{Runs} is done. ({time.time() - s_i_time :.6f} seconds)')
         torch.save(X_0_N1, path + f'X1_{run}.pt')
-        # torch.save(X_0_N2, path + f'X2_{run}.pt')
 
         del ImMCSim
-
         del X_0_N1
-        # del X_0_N2
+
+    device = 'cpu'
 
     e_time = time.time()-s_time
 
-    print(f"MPS 完成了 {Runs} 次 {2*n}x{2*n} 线性方程组 Ax=b 的求解（求 A_inv 加上矩阵乘法 A_inv @ b {2*n}x{sample_size} 的向量），\n 总共花了 {e_time} 秒（优化后）\n")
+    print(f"\n完成了 {Runs} 次 {2*n}x{2*n} 线性方程组 Ax=b 的求解（{e_time} 秒）。\n(求 A_inv 并进行矩阵乘法 A_inv @ b {2*n}x{sample_size} 的向量) \n")
 
-    print(f"MPS finished solving the {2*n}x{2*n} linear equation system Ax=b (solving inverse of A moreover do matrix multiplication M_inv @ b (where b is a {2*n}x{sample_size} vector) for {Runs} times,\n Totally {e_time} Seconds (Optimized)")
+    print(f"Solving finished. (in {e_time} seconds) Done the following works:\n 1. the inverse of A ({2*n}x{2*n} matrix) \n 2. the matrix multiplication A_inv @ b ({2*n}x{sample_size} vector)")
 
-    print(f"开始求解 J ... ")
+    print("开始求解 J ...",end=' ')
+
+    s_time = time.time()
 
     J1 = torch.zeros(sample_size*Runs)
     # J2 = torch.zeros(sample_size*Runs)
@@ -314,11 +320,11 @@ if __name__=='__main__':
     J1_means = torch.zeros(Runs)
     # J2_means = torch.zeros(Runs)
 
-    ImMCSim = ImMonteCarloYYB(A,t0,X0,T,n,dt,sig,sample_size,scheme=scheme,device=device)
+    ImMCSim = ImMonteCarloYYB(A,t0,X0,T,n,dt,sig,sample_size,scheme = scheme,device=device)
 
     for run in range(Runs):
 
-        X1_res = torch.load(path + f'X1_{run}.pt')
+        X1_res = torch.load(path + f'X1_{run}.pt').cpu()
         # X2_res = torch.load(path + f'X2_{run}.pt')
 
         X1_i = X1_res.T.reshape([sample_size,n,1,2])
@@ -330,10 +336,14 @@ if __name__=='__main__':
         J1_means[run] = torch.mean(J1[run*sample_size:(run+1)*sample_size])
         # J2_means[run] = torch.mean(J2[run*sample_size:(run+1)*sample_size])
 
-    print('J means 是 ', J1_means)
+    print(f'({time.time() - s_time:.6f} 秒) 完成。')
+
+    print('J means          是 ', J1_means)
+
     # print('J2 means 是 ', J2_means)
 
-    print('Value 是 ', LQR_sol.value_function(t0.unsqueeze(0),X0))
+    print('Value function   是 ', LQR_sol.value_function(t0.unsqueeze(0),X0))
+
 
 
 

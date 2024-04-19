@@ -130,7 +130,7 @@ class LQRSol_SO:
                 if not (x_batch.dim() == 3 and x_batch.size()[0] == len(t_batch) and x_batch.size()[1] == 1 and x_batch.size()[2] == self.H.size()[0]):
                     raise TypeError("x_batch should have shape (%d, 1, %d)."%(len(t_batch),self.H.size(2)))
             
-            time_grid = torch.stack([torch.linspace(0, self.T, N_step, dtype=torch.float32) for i in [0]])
+            time_grid = torch.stack([torch.linspace(0, self.T, N_step, device=self.device,dtype=torch.float32) for i in [0]])
             
             S_tensor_tensor = self.riccati_solver(time_grid)
 
@@ -138,19 +138,19 @@ class LQRSol_SO:
             time_grid_for_intpl = time_grid[0,index_s_1:]
             S_tensor_tensor_for_intpl = S_tensor_tensor[0,index_s_1:]
             
-            time_grid_for_intpl_np = time_grid_for_intpl.numpy()
+            time_grid_for_intpl_np = time_grid_for_intpl.cpu().numpy()
 
-            S_tensor_tensor_for_intpl_np = S_tensor_tensor_for_intpl.numpy()
-            t_batch_np = t_batch.numpy()
+            S_tensor_tensor_for_intpl_np = S_tensor_tensor_for_intpl.cpu().numpy()
+            t_batch_np = t_batch.cpu().numpy()
             
             S_c_spl = CubicSpline(time_grid_for_intpl_np, S_tensor_tensor_for_intpl_np)
             
             traces = torch.einsum('bii->b', self.sigma @ self.sigma.T @ S_tensor_tensor_for_intpl).unsqueeze(1).unsqueeze(2)
             
-            trace_cubic = CubicSpline(time_grid_for_intpl_np, traces.numpy())
+            trace_cubic = CubicSpline(time_grid_for_intpl_np, traces.cpu().numpy())
             
             def S_intpl(t_batch_np_in):
-                return torch.from_numpy(S_c_spl(t_batch_np_in)).type(torch.float32)
+                return torch.from_numpy(S_c_spl(t_batch_np_in)).type(torch.float32).to(self.device)
                 
             S_t_s = S_intpl(t_batch_np)
             
@@ -167,9 +167,10 @@ class LQRSol_SO:
                 traces_after_t1 = traces[t1_index:]
                 
                 traces_after_t1_for_int = torch.tensor(0.5,dtype=torch.float32)*(traces_after_t1[1:]+traces_after_t1[:-1])
-                int_t1 = torch.tensor(0.5,dtype=torch.float32)*(torch.from_numpy(trace_cubic(t_batch_np[i])).to(dtype=torch.float32)+traces_after_t1[0])
+                int_t1 = torch.tensor(0.5,device=self.device,dtype=torch.float32)*(torch.from_numpy(trace_cubic(t_batch_np[i])).to(dtype=torch.float32).to(self.device)+traces_after_t1[0])
 
-                intgl = (dt_t1*int_t1).squeeze() + (dt_after_t1.view(1, -1)@traces_after_t1_for_int.squeeze(1))
+                intgl = (dt_t1*int_t1).squeeze() + (dt_after_t1.view(1, -1)@traces_after_t1_for_int.
+                squeeze(1))
 
                 xTSx[i,0]+= intgl.squeeze()
             
