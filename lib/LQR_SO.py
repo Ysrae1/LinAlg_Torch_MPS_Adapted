@@ -1,13 +1,22 @@
+# File: LQR_SO.py
+# Description: This module handles the statistical analysis for the Monte Carlo simulation. 
+#              It includes functions to compute mean, median, and variance.
+# Author: Ysrae1
+# Email: Ysrae1@outlook.com
+# Date: 2024-04-19
+# Copyright: Copyright (c) 2024, Ysrae1
+# License: MIT License
+
 import torch
 import numpy as np
 from scipy.interpolate import CubicSpline
 from scipy.integrate import quad
 import warnings
 
-class LQRSol_SO:
+class LQRSol:
+
     # default numerical method is Euler.
     # Euler and Runge-Kutta are supported in this code.
-    # SO stands for "Solution of S function only".
 
     def __init__(self, H, M, sigma, C, D, R, T, N_step, method="euler", device = 'cpu'):
         
