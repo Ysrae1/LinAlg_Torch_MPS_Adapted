@@ -205,7 +205,7 @@ if __name__=='__main__':
 
     device = 'cpu'
 
-    device_MC = 'mps'
+    device_MC = 'cpu'
 
     scheme = 'im'
 
