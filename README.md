@@ -43,11 +43,7 @@ $$v(t,x) = x^{\top}S(t)x + \int_t^T \mathrm{tr}(\sigma\sigma^{\top}S(r))dr\text{
 
 The function $S(t)$ in the expression of the value function above is the solution of Riccati ODE 
 
-$$\begin{align*}
-\frac{dS(r)}{dr} &=  -(S(r)H+H^{\top} S(r)) + S(r)MD^{-1}M^{\top}S(r) - C
-,r \in [t,T] \text{,}\\
-S(T) &=  R \text{.}
-\end{align*} $$
+$$\begin{align*}\frac{dS(r)}{dr} &=  -(S(r)H+H^{\top} S(r)) + S(r)MD^{-1}M^{\top}S(r) - C ,r \in [t,T] \text{,}\\ S(T) &=  R \text{.}\end{align*} $$
 
 #### Optimal Control
 
