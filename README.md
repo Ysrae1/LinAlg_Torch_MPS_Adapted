@@ -43,13 +43,11 @@ $$v(t,x) = x^{\top}S(t)x + \int_t^T \mathrm{tr}(\sigma\sigma^{\top}S(r))dr\text{
 
 The function $S(t)$ in the expression of the value function above is the solution of Riccati ODE 
 
-$$
-\begin{align*}
+$$\begin{align*}
 \frac{dS(r)}{dr} &=  -(S(r)H+H^{\top} S(r)) + S(r)MD^{-1}M^{\top}S(r) - C
 ,r \in [t,T] \text{,}\\
 S(T) &=  R \text{.}
-\end{align*} 
-$$
+\end{align*} $$
 
 #### Optimal Control
 
@@ -67,32 +65,26 @@ Substituting the optimal control $a(t,x) = -D^{-1}M^{\top}S(t)x$ back to the dyn
 
 - Explicit Scheme
 
-$$
-\begin{align*}
+$$\begin{align*}
 X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n}}^N-MD^{-1}M^{\top}S(t_n)X_{t_{n}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\
 n &= k,\dots,N \text{,} \\
 X_{t_{k}}^N &= x.
-\end{align*}
-$$
+\end{align*}$$
 
 - Implicit Scheme
 
-$$
-\begin{align*}
+$$\begin{align*}
 X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n+1}}^N-MD^{-1}M^{\top}S(t_{n+1})X_{t_{n+1}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\
 n &= k,\dots,N \text{,} \\
 X_{t_{k}}^N &= x.
-\end{align*}
-$$
+\end{align*}$$
 
 #### Iteration Equation System in Matrix Form
 
 For the two schemes above, we can derive their forms in matrices.
 
 Denote the coefficient matrices as follows:
-$$
-\begin{align*}
-
+$$\begin{align*}
 I 
 &= 
 \left[
@@ -127,12 +119,11 @@ S(\lambda)_{21} & S(\lambda)_{22}
 \sigma_{21} & \sigma_{22}
 \end{matrix}
 \right].
-\end{align*}
-$$
+\end{align*}$$
+
 - Explicit Scheme
 
-$$
-\begin{align*}
+$$\begin{align*}
 \left[
 \begin{matrix}
 x_{1,t_{n+1}}^N \\
@@ -164,18 +155,14 @@ x_{1} \\
 x_{2}
 \end{matrix}
 \right],
-\end{align*}
-$$
+\end{align*}$$
 where
 
-$$
-z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.
-$$
+$$z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.$$
 
 Denote new coefficients matrix for combination:
 
-$$
-\begin{align*}
+$$\begin{align*}
 A_{\mathrm{E},n} & = \left[
 \begin{matrix}
 A_{\mathrm{E},n,11} & A_{\mathrm{E},n,12}\\
@@ -210,20 +197,15 @@ z_{2,t_{n}}^N
 \right]& & \mathrm{for} \ \ n = k+1,\dots,N
 \end{aligned} \right.
 \text{.}
-\end{align*}
-$$
+\end{align*}$$
 
 Let $k = 1$, then we can construct the whole matrix system as follows:
 
-$$
-\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} \mathbb{X}^{(2N \times 1)} = \mathbb{B}_{\mathrm{E}}^{(2N \times 1)},
-$$
+$$\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} \mathbb{X}^{(2N \times 1)} = \mathbb{B}_{\mathrm{E}}^{(2N \times 1)},$$
 
 where
 
-
-$$
-\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} = 
+$$\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} = 
 \left[
 \begin{matrix}
 1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
@@ -236,12 +218,9 @@ $$
 0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,11} & - A_{\mathrm{E},N-1,12} & 1 & 0 \\
 0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,21} & - A_{\mathrm{E},N-1,22} & 0 & 1
 \end{matrix}
-\right],
-$$
+\right],$$
 
-$$
-
-\mathbb{X}^{(2N \times 1)} = 
+$$\mathbb{X}^{(2N \times 1)} = 
 \left[
 \begin{matrix}
 x_{1,t_{1}}^N \\
@@ -269,15 +248,12 @@ B_{\mathrm{E},3,2} \\
 B_{\mathrm{E},N,1} \\
 B_{\mathrm{E},N,2} \\
 \end{matrix}
-\right],
-
-$$
+\right],$$
 
 - Implicit Scheme
 
 
-$$
-\begin{align*}
+$$\begin{align*}
 \left[I - \tau[H-MD^{-1}M^{\top}S(t_n)]\right]\left[
 \begin{matrix}
 x_{1,t_{n+1}}^N \\
@@ -309,18 +285,14 @@ x_{1} \\
 x_{2}
 \end{matrix}
 \right],
-\end{align*}
-$$
+\end{align*}$$
 where
 
-$$
-z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.
-$$
+$$z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.$$
 
 Denote new coefficients matrix for combination:
 
-$$
-\begin{align*}
+$$\begin{align*}
 A_{\mathrm{I},n} & = \left[
 \begin{matrix}
 A_{\mathrm{I},n,11} & A_{\mathrm{I},n,12}\\
@@ -356,21 +328,15 @@ z_{2,t_{n}}^N
 \end{aligned} \right.
 \text{.}
 
-\end{align*}
-$$
+\end{align*}$$
 
 Let $k = 1$, then we can construct the whole matrix system as follows:
 
-$$
-\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)} \mathbb{X}_{\mathrm{I}}^{(2N \times 1)} = \mathbb{B}_{\mathrm{I}}^{(2N \times 1)},
-$$
+$$\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)} \mathbb{X}_{\mathrm{I}}^{(2N \times 1)} = \mathbb{B}_{\mathrm{I}}^{(2N \times 1)},$$
 where
-$$
 
-$$
 
-$$
-\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)} = 
+$$\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)} = 
 \left[
 \begin{matrix}
 1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
@@ -383,12 +349,9 @@ $$
 0 & 0 & 0 & 0 & 0 & 0 & \dots & -1 & 0 & A_{\mathrm{I},N,11} & A_{\mathrm{I},N,12}\\
 0 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & -1 & A_{\mathrm{I},N,21} & A_{\mathrm{I},N,22}
 \end{matrix}
-\right],
-$$
+\right],$$
 
-$$
-
-\mathbb{X}^{(2N \times 1)} = 
+$$\mathbb{X}^{(2N \times 1)} = 
 \left[
 \begin{matrix}
 x_{1,t_{1}}^N \\
@@ -416,9 +379,7 @@ B_{\mathrm{I},3,2} \\
 B_{\mathrm{I},N,1} \\
 B_{\mathrm{I},N,2} \\
 \end{matrix}
-\right].
-
-$$
+\right].$$
 
 ### Block Matrix Inversion
 
@@ -428,8 +389,7 @@ For a full-rank matrix, if partitioned into four blocks, then it can be inverted
 
 In general, matrix inversion by partition can be expressed as:
 
-$$
-\left[
+$$\left[
 \begin{matrix}
 \Delta & \Lambda \\
 \Xi & \Eta
@@ -441,15 +401,13 @@ $$
 \Delta^{-1}+\Delta^{-1}\Lambda( \Eta - \Xi\Delta^{-1} \Lambda )^{-1} \Xi \Delta^{-1} & \Delta^{-1}\Lambda(\Eta - \Xi\Delta^{-1}\Lambda)^{-1} \\
 -(\Eta - \Xi \Delta^{-1} \Lambda)^{-1}\Xi \Delta^{-1} & (\Eta - \Xi \Delta^{-1} \Lambda)^{-1}
 \end{matrix}
-\right],
-$$
+\right],$$
 which means we can first compute $\Delta^{-1}$, then solve the sub-inversion $(\Eta - \Xi \Delta^{-1} \Lambda)^{-1}$, where we can partition again and again. These steps will form a whole recursion.
 
-#### The Second Level for Partition the Computation Workload
+#### The Second Level for partitioning the Computation Workload
 
 An ideal way to partition the workload at a higher level is to consider the characteristics of the problem itself, and for each time take the upper left square part with the row number to the multiple of the dimension of $X_t$. Take the $\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)}$ for instance. We can partition it as below,
-$$
-\left[
+$$\left[
 \begin{array}{cccc|c}
 1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
 0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
@@ -463,13 +421,11 @@ $$
 0 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & -1 & A_{\mathrm{I},N,21} & A_{\mathrm{I},N,22}
 \end{array}
 \right]
-.\\
-$$
+.\\$$
 
 Next, we solve the first upper-left square problem by solving its inversion by block inversion. Then, we obtain the first $(2 \times 1)$ section of $\mathbb{X}^{(2N \times 1)}$ by
 
-$$
-\left[
+$$\left[
 \begin{matrix}
 x_{1,t_{1}}^N \\
 x_{2,t_{1}}^N \\
@@ -491,8 +447,8 @@ B_{\mathrm{I},1,2} \\
 B_{\mathrm{I},2,1} \\
 B_{\mathrm{I},2,2} \\
 \end{matrix}
-\right].
-$$
+\right].$$
+
 When dealing with the next block, to keep the correctness, we should change the first terms of the next section of $\mathbb{B}_{\mathrm{I}}^{(2N \times 1)}$ by **massaging a little bit** with the tail of the last solution piece of $\mathbb{X}^{(2N \times 1)}$.
 
 It is probably noticed that the matrix problem with $2$ **time steps** as described essentially duplicates the behavior of the most elementary iteration,  which tackles just $1$ **time step** at a time. However, the advantage of using matrix representation is that it allows us to effortlessly scale the number of time steps we wish to solve simultaneously to virtually any extent. This flexibility enables us to really push our computer to its limits, effectively making it sweat by working at its maximum capacity 😈.
@@ -501,9 +457,7 @@ It is probably noticed that the matrix problem with $2$ **time steps** as descri
 
 By changing the second dimension of $\mathbb{B}$ and thus $\mathbb{X}$, for example,
 
-$$
-
-\mathbb{X}^{(2N \times \texttt{sample\_size})} = 
+$$\mathbb{X}^{(2N \times \texttt{sample\_size})} = 
 \left[
 \begin{matrix}
 \left[\begin{matrix} 
@@ -603,9 +557,7 @@ B_{\mathrm{I}}^{N,\texttt{sample\_size}}\\
 \\
 \end{matrix} \right]
 \end{matrix}
-\right].
-
-$$
+\right].$$
 
 
 we can scale the sampling batch size as well! 🥳
