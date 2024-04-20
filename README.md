@@ -267,6 +267,8 @@ B_{\mathrm{E},N,2}
   \end{align*} \nonumber
 $$
 
+
+
 - **Implicit Scheme**
 
   
@@ -306,6 +308,8 @@ x_{2}
 \right],
 \end{align*} \nonumber
 $$
+
+
 
 where
 
@@ -365,7 +369,10 @@ $$
 \mathbb{A}_{\mathrm{I}}^{(2N \times 2N)} \mathbb{X}_{\mathrm{I}}^{(2N \times 1)} = \mathbb{B}_{\mathrm{I}}^{(2N \times 1)}, \nonumber
 $$
 
+
 where
+
+
 $$
 \begin{align*}
 \mathbb{A}_{\mathrm{I}}^{(2N \times 2N)} &= 
