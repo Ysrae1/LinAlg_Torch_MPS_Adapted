@@ -427,15 +427,12 @@ In general, matrix inversion by partition can be expressed as:
 $$
 \left[
 \begin{matrix}
-\Delta & \Lambda \\\
-\Xi & \Sigma
+\Delta & \Lambda \\\ \Xi & \Sigma
 \end{matrix}
-\right]^{-1} 
-=
+\right]^{-1} =
 \left[
 \begin{matrix}
-\Delta^{-1}+\Delta^{-1}\Lambda( \Sigma  - \Xi\Delta^{-1} \Lambda )^{-1} \Xi \Delta^{-1} & \Delta^{-1}\Lambda(\Sigma - \Xi\Delta^{-1}\Lambda)^{-1} \\\
--(\Sigma - \Xi \Delta^{-1} \Lambda)^{-1}\Xi \Delta^{-1} & (\Sigma - \Xi \Delta^{-1} \Lambda)^{-1}
+\Delta^{-1}+\Delta^{-1}\Lambda( \Sigma  - \Xi\Delta^{-1} \Lambda )^{-1} \Xi \Delta^{-1} & \Delta^{-1}\Lambda(\Sigma - \Xi\Delta^{-1}\Lambda)^{-1} \\\ -(\Sigma - \Xi \Delta^{-1} \Lambda)^{-1}\Xi \Delta^{-1} & (\Sigma - \Xi \Delta^{-1} \Lambda)^{-1}
 \end{matrix}
 \right], \nonumber
 $$
