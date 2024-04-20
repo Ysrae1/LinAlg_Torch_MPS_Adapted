@@ -96,7 +96,12 @@ x_{2,t_{n+1}}^N
 x_{1,t_{n}}^N \\\
 x_{2,t_{n}}^N
 \end{matrix}
-\right] + \sqrt{\tau} \sigma
+\right] + \sqrt{\tau} \sigma \left[
+\begin{matrix}
+z_{1,t_{n}}^N \\\
+z_{2,t_{n}}^N
+\end{matrix}
+\right],
 \end{align*}
 $$
 
