@@ -102,6 +102,7 @@ z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
 \end{matrix}
 \right],
+n & = k,\dots,N \text{,} \\\
 \end{align*}
 $$
 
