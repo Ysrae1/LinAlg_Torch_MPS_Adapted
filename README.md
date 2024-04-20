@@ -78,9 +78,9 @@ Substituting the optimal control $a(t,x) = -D^{-1}M^{\top}S(t)x$ back to the dyn
 
   
   $$
-  \begin{align}
+  \begin{align*}
   X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n}}^N-MD^{-1}M^{\top}S(t_n)X_{t_{n}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\ n &= k,\dots,N \text{,} \\\ X_{t_{k}}^N &= x.
-  \end{align}
+  \end{align*}
   $$
   
   $$
