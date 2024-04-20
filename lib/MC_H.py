@@ -193,7 +193,7 @@ class MonteCarlo_H:
 
         return X_0_N.reshape([2*self.n,1])
         
-    def J_computation(self, X_0_N, multa,C,R):
+    def J_computation(self, X_0_N, multa,C,D,R):
         
         alpha = multa@X_0_N.transpose(2,3)
 
