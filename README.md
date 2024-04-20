@@ -90,6 +90,12 @@ $$\begin{align*}
 x_{1,t_{n+1}}^N \\\
 x_{2,t_{n+1}}^N
 \end{matrix}
+\right] & =
+\left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right]\left[
+\begin{matrix}
+x_{1,t_{n}}^N \\\
+x_{2,t_{n}}^N
+\end{matrix}
 \right]
 \end{align*}
 $$
