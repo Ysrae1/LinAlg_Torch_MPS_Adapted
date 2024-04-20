@@ -506,8 +506,7 @@ By changing the second dimension of $\mathbb{B}$ and thus $\mathbb{X}$​​, fo
 $$
 \begin{align*}
 \mathbb{X}^{(2N \times \texttt{sample\_size})} &= 
-\left[
-\begin{matrix}
+\left[\begin{matrix}
 \left[\begin{matrix} 
 \\\
 \\\
@@ -521,8 +520,7 @@ X^{N,1}\\\
 \\\
 \\\
 \\\
-\end{matrix} \right] & 
-\left[\begin{matrix} 
+\end{matrix} \right] & \left[\begin{matrix} 
 \\\
 \\\
 \\\
@@ -535,8 +533,7 @@ X^{N,2}\\\
 \\\
 \\\
 \\\
-\end{matrix} \right] & \dots&
-\left[\begin{matrix} 
+\end{matrix} \right] & \dots & \left[\begin{matrix} 
 \\\
 \\\
 \\\
@@ -549,28 +546,21 @@ X^{N,\texttt{sample\_size}}\\\
 \\\
 \\\
 \\\
-\end{matrix} \right]
-\end{matrix}
-\right],
-\qquad \qquad \\
-\mathbb{B}_{\mathrm{I}}^{(2N \times \texttt{sample\_size})} &=
-\left[
-\begin{matrix}
-\left[\begin{matrix} 
+\end{matrix} \right] \end{matrix} \right],
+\qquad \qquad \\\
+\mathbb{B}_{\mathrm{I}}^{(2N \times \texttt{sample\_size})} &= \left[\begin{matrix} \left[\begin{matrix} 
 \\\
 \\\
 \\\
 \\\
 \\\
-\\\
-B_{\mathrm{I}}^{N,1}\\\
-\\\
+\\\ B_{\mathrm{I}}^{N,1}\\\
 \\\
 \\\
 \\\
 \\\
-\end{matrix} \right] & 
-\left[\begin{matrix} 
+\\\
+\end{matrix} \right] & \left[\begin{matrix} 
 \\\
 \\\
 \\\
@@ -583,8 +573,7 @@ B_{\mathrm{I}}^{N,2}\\\
 \\\
 \\\
 \\\
-\end{matrix} \right] & \dots&
-\left[\begin{matrix} 
+\end{matrix} \right] & \dots & \left[\begin{matrix} 
 \\\
 \\\
 \\\
@@ -597,10 +586,7 @@ B_{\mathrm{I}}^{N,\texttt{sample\_size}}\\\
 \\\
 \\\
 \\\
-\end{matrix} \right]
-\end{matrix}
-\right],
-\end{align*} \nonumber
+\end{matrix} \right]\end{matrix}\right],\end{align*} \nonumber
 $$
 
 
