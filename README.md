@@ -11,7 +11,7 @@ A SUPER fast solution for processing Monte Carlo simulations with a high computa
 
 The main purpose of this program for the author is to make the most of his computation resources at hand (which though was swiftly overtaken by its successors 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️). The numerical example used to tap into his computer’s computational power is drawn from coursework in Stochastic Control and Dynamic Asset Allocation at the University of Edinburgh, 2024.
 
-The initial challenge arose when the author attempted to speed up a Monte Carlo simulation by shifting from the most basic `for` loop iteration to solving a large sparse linear equation system, effectively needing to compute the inverse of a massive matrix.  Coincidentally, he had just encountered some possibly unreliable claims in an advertisement from **Apple**, stating that the **Metal Performance Shader (MPS)** was particularly adept at handling such issues. However, after expending a great deal of effort to construct the matrix, his silicon cheerfully reported a memory overflow error as its way of saying thanks.
+The initial challenge arose when the author attempted to speed up a Monte Carlo simulation by shifting from the most basic `for` loop iteration to solving a large sparse linear equation system, effectively needing to compute the inverse of a massive matrix.  Coincidentally, he had just encountered some possibly unreliable claims in an advertisement from**Apple**, stating that the **Metal Performance Shader (MPS)** was particularly adept at handling such issues. However, after expending a great deal of effort to construct the matrix, his silicon cheerfully reported a memory overflow error as its way of saying thanks.
 
 In the end, he had to tackle this problem by delving into the fundamental mathematics himself. Thankfully, there's still a shred of amusement to be found, as this ordeal somewhat resembles character leveling in an unseen video game.
 
@@ -428,19 +428,20 @@ $$
 \left[
 \begin{matrix}
 \Delta & \Lambda \\\
-\Xi & \Eta
+\Xi & \Sigma
 \end{matrix}
 \right]^{-1} 
 =
 \left[
 \begin{matrix}
-\Delta^{-1}+\Delta^{-1}\Lambda( \Eta - \Xi\Delta^{-1} \Lambda )^{-1} \Xi \Delta^{-1} & \Delta^{-1}\Lambda(\Eta - \Xi\Delta^{-1}\Lambda)^{-1} \\\
--(\Eta - \Xi \Delta^{-1} \Lambda)^{-1}\Xi \Delta^{-1} & (\Eta - \Xi \Delta^{-1} \Lambda)^{-1}
+\Delta^{-1}+\Delta^{-1}\Lambda( \Sigma  - \Xi\Delta^{-1} \Lambda )^{-1} \Xi \Delta^{-1} & \Delta^{-1}\Lambda(\Sigma - \Xi\Delta^{-1}\Lambda)^{-1} \\\
+-(\Sigma - \Xi \Delta^{-1} \Lambda)^{-1}\Xi \Delta^{-1} & (\Sigma - \Xi \Delta^{-1} \Lambda)^{-1}
 \end{matrix}
 \right], \nonumber
 $$
 
-which means we can first compute $\Delta^{-1}$, then solve the sub-inversion $(\Eta - \Xi \Delta^{-1} \Lambda)^{-1}$, where we can partition again and again. These steps will form a whole recursion.
+
+which means we can first compute $\Delta^{-1}$, then solve the sub-inversion $(\Sigma - \Xi \Delta^{-1} \Lambda)^{-1}$, where we can partition again and again. These steps will form a whole recursion.
 
 #### The Second Level for partitioning the Computation Workload
 
@@ -559,35 +560,36 @@ X^{N,\texttt{sample\_size}}\\\
 \left[
 \begin{matrix}
 \left[\begin{matrix} 
-\\\\
-\\\\
-\\\\
-\\\\
-\\\\
-\\\\
+\\\
+\\\
+\\\
+\\\
+\\\
+\\\
 B_{\mathrm{I}}^{N,1}\\\
-\\
-\\
-\\
-\\
-\\
+\\\
+\\\
+\\\
+\\\
+\\\
 \end{matrix} \right] & 
 \left[\begin{matrix} 
-\\
-\\
-\\
-\\
-\\
-\\
+\\\
+\\\
+\\\
+\\\
+\\\
+\\\
 B_{\mathrm{I}}^{N,2}\\\
-\\
-\\
-\\
-\\
-\\
+\\\
+\\\
+\\\
+\\\
+\\\
 \end{matrix} \right] & \dots&
 \left[\begin{matrix} 
-\\
+\\\
+\\\
 \\\
 \\\
 \\\
