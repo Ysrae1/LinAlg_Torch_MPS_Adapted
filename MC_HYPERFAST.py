@@ -64,7 +64,7 @@ if __name__=='__main__':
     n = 5000
 
     sample_size = 25000
-    Runs = 12
+    Runs = 4
 
     time_grid = torch.linspace(t0, T, n, dtype = torch.float32, device = device) # for both MC and Riccati.
 
