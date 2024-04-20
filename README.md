@@ -122,7 +122,6 @@ $$z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.$$
 
 Denote new coefficients matrix for combination:
 
-Denote new coefficients matrix for combination:
 
 $$
 A\_{\mathrm{E},n} = \begin{bmatrix}
@@ -158,24 +157,21 @@ $$\mathbb{A}\_{\mathrm{E}}^{(2N \times 2N)} \mathbb{X}^{(2N \times 1)} = \mathbb
 
 where
 
-$$\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} = 
-\left[
-\begin{matrix}
+$$\mathbb{A}\_{\mathrm{E}}\^{(2N \times 2N)} = 
+\begin{bmatrix}
 1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
 0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
-- A_{\mathrm{E},1,11} & - A_{\mathrm{E},1,12} & 1 & 0 & 0 & 0 &\dots & 0 & 0 & 0 & 0\\\
-- A_{\mathrm{E},1,21} & - A_{\mathrm{E},1,22} & 0 & 1 & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\\
-0 & 0 & - A_{\mathrm{E},2,11} & - A_{\mathrm{E},2,12} & 1 & 0 & \dots & 0 & 0 & 0 & 0\\\
-0 & 0 & - A_{\mathrm{E},2,21} & - A_{\mathrm{E},2,22} & 0 & 1 & \dots & 0 & 0 & 0 & 0\\\
+\-A\_{\mathrm{E},1,11} & - A\_{\mathrm{E},1,12} & 1 & 0 & 0 & 0 &\dots & 0 & 0 & 0 & 0\\\
+\-A\_{\mathrm{E},1,21} & - A\_{\mathrm{E},1,22} & 0 & 1 & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\\
+0 & 0 & - A\_{\mathrm{E},2,11} & - A\_{\mathrm{E},2,12} & 1 & 0 & \dots & 0 & 0 & 0 & 0\\\
+0 & 0 & - A\_{\mathrm{E},2,21} & - A\_{\mathrm{E},2,22} & 0 & 1 & \dots & 0 & 0 & 0 & 0\\\
 \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\\
-0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,11} & - A_{\mathrm{E},N-1,12} & 1 & 0 \\\
-0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,21} & - A_{\mathrm{E},N-1,22} & 0 & 1
-\end{matrix}
-\right],$$
+0 & 0 & 0 & 0 & 0 & 0 & \dots & - A\_{\mathrm{E},N-1,11} & - A\_{\mathrm{E},N-1,12} & 1 & 0 \\\
+0 & 0 & 0 & 0 & 0 & 0 & \dots & - A\_{\mathrm{E},N-1,21} & - A\_{\mathrm{E},N-1,22} & 0 & 1
+\end{bmatrix},$$
 
 $$\mathbb{X}^{(2N \times 1)} = 
-\left[
-\begin{matrix}
+\begin{bmatrix}
 x_{1,t_{1}}^N \\\
 x_{2,t_{1}}^N \\\
 x_{1,t_{2}}^N \\\
@@ -185,21 +181,20 @@ x_{2,t_{3}}^N \\\
 \vdots\\\
 x_{1,t_{N}}^N \\\
 x_{2,t_{N}}^N 
-\end{matrix}
-\right],
+\end{bmatrix},
 \qquad \qquad
 \mathbb{B}_{\mathrm{E}}^{(2N \times 1)} = 
 \left[
 \begin{matrix}
-B_{\mathrm{E},1,1} \\\
-B_{\mathrm{E},1,2} \\\
-B_{\mathrm{E},2,1} \\\
-B_{\mathrm{E},2,2} \\\
-B_{\mathrm{E},3,1} \\\
-B_{\mathrm{E},3,2} \\\
+B\_{\mathrm{E},1,1} \\\
+B\_{\mathrm{E},1,2} \\\
+B\_{\mathrm{E},2,1} \\\
+B\_{\mathrm{E},2,2} \\\
+B\_{\mathrm{E},3,1} \\\
+B\_{\mathrm{E},3,2} \\\
 \vdots\\\
-B_{\mathrm{E},N,1} \\\
-B_{\mathrm{E},N,2} 
+B\_{\mathrm{E},N,1} \\\
+B\_{\mathrm{E},N,2} 
 \end{matrix}
 \right],$$
 
