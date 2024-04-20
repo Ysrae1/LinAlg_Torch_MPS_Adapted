@@ -122,43 +122,39 @@ $$z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.$$
 
 Denote new coefficients matrix for combination:
 
-$$\begin{align*} A_{\mathrm{E},n} & = \left[
-\begin{matrix}
-A_{\mathrm{E},n,11} & A_{\mathrm{E},n,12} \\\ A_{\mathrm{E},n,21} & A_{\mathrm{E},n,22} \end{matrix}
-\right]
-\coloneqq \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right],\ \ n = k,\dots,N \text{,} \\\ B_{\mathrm{E},n} & = \left[
-\begin{matrix}
-B_{\mathrm{E},n,1} \\\ B_{\mathrm{E},n,2}
-\end{matrix}\right] \coloneqq \left\{  \right\}.
-\end{align*} $$
+Denote new coefficients matrix for combination:
 
-$$\begin{align*} A_{\mathrm{E},n} & = \left[
-\begin{matrix}
-A_{\mathrm{E},n,11} & A_{\mathrm{E},n,12} \\\ A_{\mathrm{E},n,21} & A_{\mathrm{E},n,22} \end{matrix}
-\right]
-\coloneqq \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right],\ \ n = k,\dots,N \text{,}\\\ B_{\mathrm{E},n} & = \left[
-\begin{matrix}
-B_{\mathrm{E},n,1} \\\ B_{\mathrm{E},n,2}
-\end{matrix}
-\right] \coloneqq \left\{ \begin{aligned}
-&&\left[\begin{matrix}
-x_{1} \\\ x_{2}
-\end{matrix}
-\right]& & &\mathrm{for } \ \ n = k \\\ &\tau &\left[\begin{matrix}
-\sigma_{11} & \sigma_{12} \\\ \sigma_{21} & \sigma_{22}
-\end{matrix}
-\right]&\left[
-\begin{matrix}
-z_{1,t_{n}}^N \\\ z_{2,t_{n}}^N
-\end{matrix}
-\right]& & \mathrm{for} \ \ n = k+1,\dots,N
-\end{aligned} \right.
-\text{.}
-\end{align*}$$
+$$
+A\_{\mathrm{E},n} = \begin{bmatrix}
+A\_{\mathrm{E},n,11} & A\_{\mathrm{E},n,12} \\
+A\_{\mathrm{E},n,21} & A\_{\mathrm{E},n,22}
+\end{bmatrix} \coloneqq \left[I + \tau(H-MD^{-1}M^{\top}S(t_n))\right], \quad n = k,\dots,N
+$$
+
+$$
+B_{\mathrm{E},n} = \begin{bmatrix}
+B_{\mathrm{E},n,1} \\
+B_{\mathrm{E},n,2}
+\end{bmatrix} \coloneqq \left\lbrace
+\begin{aligned}
+&\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix} && \text{for } n = k \\
+&\tau \begin{bmatrix}
+\sigma_{11} & \sigma_{12} \\
+\sigma_{21} & \sigma_{22}
+\end{bmatrix} \begin{bmatrix}
+z_{1,t_{n}}^N \\
+z_{2,t_{n}}^N
+\end{bmatrix} && \text{for } n = k+1,\dots,N
+\end{aligned}
+\right.
+$$
 
 Let $k = 1$, then we can construct the whole matrix system as follows:
 
-$$\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} \mathbb{X}^{(2N \times 1)} = \mathbb{B}_{\mathrm{E}}^{(2N \times 1)},$$
+$$\mathbb{A}\_{\mathrm{E}}^{(2N \times 2N)} \mathbb{X}^{(2N \times 1)} = \mathbb{B}_{\mathrm{E}}^{(2N \times 1)},$$
 
 where
 
