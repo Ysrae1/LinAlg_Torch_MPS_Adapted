@@ -101,9 +101,7 @@ x_{2,t_{n}}^N
 z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
 \end{matrix}
-\right], \\\
-
-n & = k,\dots,N \text{,} \\\
+\right], \\\ n & = k,\dots,N \text{,} \\\
 \left[
 \begin{matrix}
 x_{1,t_{k}}^N \\\
