@@ -99,7 +99,6 @@ Substituting the optimal control $a(t,x) = -D^{-1}M^{\top}S(t)x$ back to the dyn
   \end{align*} \nonumber
   $$
   
-
 - **Implicit Scheme**
   
   
@@ -447,7 +446,7 @@ $$
 
 which means we can first compute $\Delta^{-1}$, then solve the sub-inversion $(\Sigma - \Xi \Delta^{-1} \Lambda)^{-1}$, where we can partition again and again. These steps will form a whole recursion.
 
-#### The Second Level for partitioning the Computation Workload
+#### The Second Level for Partitioning the Computation Workload
 
 An ideal way to partition the workload at a higher level is to consider the characteristics of the problem itself, and for each time take the upper left square part with the row number to the multiple of the dimension of $X_t$. Take the $\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)}$​​ for instance. We can partition it as below,
 
