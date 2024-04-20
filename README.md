@@ -84,13 +84,15 @@ $$
 
 - Explicit Scheme
 
+
 $$\begin{align*}
 \left[
 \begin{matrix}
 x_{1,t_{n+1}}^N \\\
 x_{2,t_{n+1}}^N
 \end{matrix}
-\right] & =
+\right]
+&=
 \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right]\left[
 \begin{matrix}
 x_{1,t_{n}}^N \\\
@@ -101,7 +103,9 @@ x_{2,t_{n}}^N
 z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
 \end{matrix}
-\right], \\\ n & = k,\dots,N \text{,} \\\
+\right], \\\
+n &= k,\dots,N \text{,} \\\
+
 \left[
 \begin{matrix}
 x_{1,t_{k}}^N \\\
@@ -113,65 +117,73 @@ x_{1} \\\
 x_{2}
 \end{matrix}
 \right],
-\end{align*}
-$$
-
+\end{align*}$$
 where
 
 $$z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.$$
 
 Denote new coefficients matrix for combination:
 
+$$\begin{align*}
+A_{\mathrm{E},n} & = \left[
+\begin{matrix}
+A_{\mathrm{E},n,11} & A_{\mathrm{E},n,12}\\\
+A_{\mathrm{E},n,21} & A_{\mathrm{E},n,22}
+\end{matrix}
+\right]
 
-$$
-A\_{\mathrm{E},n} = \begin{bmatrix}
-A\_{\mathrm{E},n,11} & A\_{\mathrm{E},n,12} \\
-A\_{\mathrm{E},n,21} & A\_{\mathrm{E},n,22}
-\end{bmatrix} \coloneqq \left[I + \tau(H-MD^{-1}M^{\top}S(t_n))\right], \quad n = k,\dots,N
-$$
-
-$$
-B_{\mathrm{E},n} = \begin{bmatrix}
-B_{\mathrm{E},n,1} \\
+\coloneqq \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right],\ \ n = k,\dots,N \text{,}\\\
+B_{\mathrm{E},n} & = \left[
+\begin{matrix}
+B_{\mathrm{E},n,1} \\\
 B_{\mathrm{E},n,2}
-\end{bmatrix} \coloneqq \left\lbrace
+\end{matrix}
+\right] \coloneqq 
+\left\{ 
 \begin{aligned}
-&\begin{bmatrix}
-x_1 \\
-x_2
-\end{bmatrix} && \text{for } n = k \\
-&\tau \begin{bmatrix}
-\sigma_{11} & \sigma_{12} \\
+&&&\left[\begin{matrix}
+x_{1} \\\
+x_{2}
+\end{matrix}
+\right]& \mathrm{for }& \ \ n = k \\\
+&&\tau&\left[\begin{matrix}
+\sigma_{11} & \sigma_{12} \\\
 \sigma_{21} & \sigma_{22}
-\end{bmatrix} \begin{bmatrix}
-z_{1,t_{n}}^N \\
+\end{matrix}
+\right]\left[
+\begin{matrix}
+z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
-\end{bmatrix} && \text{for } n = k+1,\dots,N
-\end{aligned}
-\right.
-$$
+\end{matrix}
+\right]& \mathrm{for}& \ \ n = k+1,\dots,N
+\end{aligned} \right.
+\text{.}
+\end{align*}$$
 
 Let $k = 1$, then we can construct the whole matrix system as follows:
 
-$$\mathbb{A}\_{\mathrm{E}}^{(2N \times 2N)} \mathbb{X}^{(2N \times 1)} = \mathbb{B}_{\mathrm{E}}^{(2N \times 1)},$$
+$$\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} \mathbb{X}^{(2N \times 1)} = \mathbb{B}_{\mathrm{E}}^{(2N \times 1)},$$
 
 where
 
-$$\mathbb{A}\_{\mathrm{E}}\^{(2N \times 2N)} = 
-\begin{bmatrix}
+$$\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} = 
+\left[
+\begin{matrix}
 1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
 0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
-\-A\_{\mathrm{E},1,11} & - A\_{\mathrm{E},1,12} & 1 & 0 & 0 & 0 &\dots & 0 & 0 & 0 & 0\\\
-\-A\_{\mathrm{E},1,21} & - A\_{\mathrm{E},1,22} & 0 & 1 & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\\
-0 & 0 & - A\_{\mathrm{E},2,11} & - A\_{\mathrm{E},2,12} & 1 & 0 & \dots & 0 & 0 & 0 & 0\\\
-0 & 0 & - A\_{\mathrm{E},2,21} & - A\_{\mathrm{E},2,22} & 0 & 1 & \dots & 0 & 0 & 0 & 0\\\
+- A_{\mathrm{E},1,11} & - A_{\mathrm{E},1,12} & 1 & 0 & 0 & 0 &\dots & 0 & 0 & 0 & 0\\\
+- A_{\mathrm{E},1,21} & - A_{\mathrm{E},1,22} & 0 & 1 & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\\
+0 & 0 & - A_{\mathrm{E},2,11} & - A_{\mathrm{E},2,12} & 1 & 0 & \dots & 0 & 0 & 0 & 0\\\
+0 & 0 & - A_{\mathrm{E},2,21} & - A_{\mathrm{E},2,22} & 0 & 1 & \dots & 0 & 0 & 0 & 0\\\
 \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\\
-0 & 0 & 0 & 0 & 0 & 0 & \dots & - A\_{\mathrm{E},N-1,11} & - A\_{\mathrm{E},N-1,12} & 1 & 0 \\\
-0 & 0 & 0 & 0 & 0 & 0 & \dots & - A\_{\mathrm{E},N-1,21} & - A\_{\mathrm{E},N-1,22} & 0 & 1
-\end{bmatrix},$$
+0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,11} & - A_{\mathrm{E},N-1,12} & 1 & 0 \\\
+0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,21} & - A_{\mathrm{E},N-1,22} & 0 & 1
+\end{matrix}
+\right],$$
 
 $$\mathbb{X}^{(2N \times 1)} = 
-\begin{bmatrix}
+\left[
+\begin{matrix}
 x_{1,t_{1}}^N \\\
 x_{2,t_{1}}^N \\\
 x_{1,t_{2}}^N \\\
@@ -181,20 +193,21 @@ x_{2,t_{3}}^N \\\
 \vdots\\\
 x_{1,t_{N}}^N \\\
 x_{2,t_{N}}^N 
-\end{bmatrix},
+\end{matrix}
+\right],
 \qquad \qquad
 \mathbb{B}_{\mathrm{E}}^{(2N \times 1)} = 
 \left[
 \begin{matrix}
-B\_{\mathrm{E},1,1} \\\
-B\_{\mathrm{E},1,2} \\\
-B\_{\mathrm{E},2,1} \\\
-B\_{\mathrm{E},2,2} \\\
-B\_{\mathrm{E},3,1} \\\
-B\_{\mathrm{E},3,2} \\\
+B_{\mathrm{E},1,1} \\\
+B_{\mathrm{E},1,2} \\\
+B_{\mathrm{E},2,1} \\\
+B_{\mathrm{E},2,2} \\\
+B_{\mathrm{E},3,1} \\\
+B_{\mathrm{E},3,2} \\\
 \vdots\\\
-B\_{\mathrm{E},N,1} \\\
-B\_{\mathrm{E},N,2} 
+B_{\mathrm{E},N,1} \\\
+B_{\mathrm{E},N,2} 
 \end{matrix}
 \right],$$
 
@@ -357,19 +370,19 @@ which means we can first compute $\Delta^{-1}$, then solve the sub-inversion $(\
 An ideal way to partition the workload at a higher level is to consider the characteristics of the problem itself, and for each time take the upper left square part with the row number to the multiple of the dimension of $X_t$. Take the $\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)}$ for instance. We can partition it as below,
 $$\left[
 \begin{array}{cccc|c}
-1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
-0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
- -1 & 0 & A_{\mathrm{I},2,11} &  A_{\mathrm{I},2,12} & 0 & 0 &\dots & 0 & 0 & 0 & 0\\\
- 0 & -1 & A_{\mathrm{I},2,21} &  A_{\mathrm{I},2,22} & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\\
+1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\
+ -1 & 0 & A_{\mathrm{I},2,11} &  A_{\mathrm{I},2,12} & 0 & 0 &\dots & 0 & 0 & 0 & 0\\
+ 0 & -1 & A_{\mathrm{I},2,21} &  A_{\mathrm{I},2,22} & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\
  \hline
-0 & 0 & -1 & 0 & A_{\mathrm{I},3,11} & A_{\mathrm{I},3,12} &  \dots & 0 & 0 & 0 & 0 \\\
-0 & 0 & 0 & -1 & A_{\mathrm{I},3,21} &  A_{\mathrm{I},3,22} & \dots & 0 & 0 & 0 & 0\\\
-\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\\
-0 & 0 & 0 & 0 & 0 & 0 & \dots & -1 & 0 & A_{\mathrm{I},N,11} & A_{\mathrm{I},N,12}\\\
+0 & 0 & -1 & 0 & A_{\mathrm{I},3,11} & A_{\mathrm{I},3,12} &  \dots & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & -1 & A_{\mathrm{I},3,21} &  A_{\mathrm{I},3,22} & \dots & 0 & 0 & 0 & 0\\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\
+0 & 0 & 0 & 0 & 0 & 0 & \dots & -1 & 0 & A_{\mathrm{I},N,11} & A_{\mathrm{I},N,12}\\
 0 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & -1 & A_{\mathrm{I},N,21} & A_{\mathrm{I},N,22}
 \end{array}
 \right]
-.\\\$$
+.\\$$
 
 Next, we solve the first upper-left square problem by solving its inversion by block inversion. Then, we obtain the first $(2 \times 1)$ section of $\mathbb{X}^{(2N \times 1)}$ by
 
