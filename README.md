@@ -1,6 +1,6 @@
 # Custom Linear Algebra Solutions for PyTorch MPS on Apple Silicon (M2 Pro) 
 
-This version of `README.md` is only for avoiding the GitHub lame LaTeX rendering for which most of the math parts is eliminated 🙄 . Check the complete version 👉🏻 [README(complete).pdf](./README(complete).pdf) if necessary.
+This version of `README.md` is only for avoiding the GitHub's lame LaTeX rendering for which most of the math parts is eliminated 🙄 . Check the complete version 👉🏻 [README(complete).pdf](./README(complete).pdf) if necessary.
 
 ## Introduction
 
