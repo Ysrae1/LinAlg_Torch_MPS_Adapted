@@ -116,39 +116,6 @@ x_{2}
 \end{align*}
 $$
 
-$$\begin{align*}
-\left[
-\begin{matrix}
-x_{1,t_{n+1}}^N \\\
-x_{2,t_{n+1}}^N
-\end{matrix}
-\right]
-&=
-\left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right]\left[
-\begin{matrix}
-x_{1,t_{n}}^N \\\
-x_{2,t_{n}}^N
-\end{matrix}
-\right] + \sqrt{\tau} \sigma \left[
-\begin{matrix}
-z_{1,t_{n}}^N \\\
-z_{2,t_{n}}^N
-\end{matrix}
-\right], \\\
-n &= k,\dots,N \text{,} \\\
-
-\left[
-\begin{matrix}
-x_{1,t_{k}}^N \\\
-x_{2,t_{k}}^N
-\end{matrix}
-\right] & = \left[
-\begin{matrix}
-x_{1} \\\
-x_{2}
-\end{matrix}
-\right],
-\end{align*}$$
 where
 
 $$z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.$$
