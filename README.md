@@ -128,17 +128,13 @@ A_{\mathrm{E},n,11} & A_{\mathrm{E},n,12} \\\ A_{\mathrm{E},n,21} & A_{\mathrm{E
 \right]
 \coloneqq \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right],\ \ n = k,\dots,N \text{,}\\\ B_{\mathrm{E},n} & = \left[
 \begin{matrix}
-B_{\mathrm{E},n,1} \\\B_{\mathrm{E},n,2}
-\en d{matrix}
-\right] \coloneqq 
-
-\left\{ 
-\begin{aligned}
+B_{\mathrm{E},n,1} \\\ B_{\mathrm{E},n,2}
+\end{matrix}
+\right] \coloneqq \left\{ \begin{aligned}
 &&\left[\begin{matrix}
 x_{1} \\\ x_{2}
 \end{matrix}
-\right]& & &\mathrm{for } \ \ n = k \\\
-&\tau&\left[\begin{matrix}
+\right]& & &\mathrm{for } \ \ n = k \\\ &\tau &\left[\begin{matrix}
 \sigma_{11} & \sigma_{12} \\\ \sigma_{21} & \sigma_{22}
 \end{matrix}
 \right]&\left[
