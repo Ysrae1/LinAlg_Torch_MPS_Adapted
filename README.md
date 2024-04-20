@@ -96,7 +96,7 @@ x_{2,t_{n+1}}^N
 x_{1,t_{n}}^N \\\
 x_{2,t_{n}}^N
 \end{matrix}
-\right]
+\right] + \sqrt{\tau} \sigma
 \end{align*}
 $$
 
