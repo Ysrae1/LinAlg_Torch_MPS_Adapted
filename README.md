@@ -101,8 +101,20 @@ x_{2,t_{n}}^N
 z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
 \end{matrix}
-\right],
+\right], \\\
+
 n & = k,\dots,N \text{,} \\\
+\left[
+\begin{matrix}
+x_{1,t_{k}}^N \\\
+x_{2,t_{k}}^N
+\end{matrix}
+\right] & = \left[
+\begin{matrix}
+x_{1} \\\
+x_{2}
+\end{matrix}
+\right],
 \end{align*}
 $$
 
