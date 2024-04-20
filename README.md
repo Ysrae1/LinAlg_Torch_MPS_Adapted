@@ -22,28 +22,20 @@ In the end, he had to tackle this problem by delving into the fundamental mathem
 #### Dynamic
 
 Consider the controlled process in space, expressed as
-$$
-dX_s = [HX_s + M \alpha_s]ds + \sigma dW_s , s\in[t,T],X_t = x \text{.}
-$$
+$$dX_s = [HX_s + M \alpha_s]ds + \sigma dW_s , s\in[t,T],X_t = x \text{.}$$
 
 
 #### Objective
 
 Our aimed is to minimize
-$$
-J^\alpha(t,x) \coloneqq \mathbb{E}^{t,x}\left[\int_t^T(X^{\top}_sCX_s +\alpha^{\top}_sD\alpha_s)ds + X^{\top}_TRX_T \right]\text{.}
-$$
+$$J^\alpha(t,x) \coloneqq \mathbb{E}^{t,x}\left[\int_t^T(X^{\top}_sCX_s +\alpha^{\top}_sD\alpha_s)ds + X^{\top}_TRX_T \right]\text{.}$$
 
 #### (Optimal) Value Function
 
 The optimal of the problem above is called value function, denoted as 
-$$
-v(t,x) \coloneqq \inf \limits_{\alpha} J^\alpha(t,x) \text{.}
-$$
+$$v(t,x) \coloneqq \inf \limits_{\alpha} J^\alpha(t,x) \text{.}$$
 By solving Bellman PDE, we can obtain that
-$$
-v(t,x) = x^{\top}S(t)x + \int_t^T \mathrm{tr}(\sigma\sigma^{\top}S(r))dr\text{.}
-$$
+$$v(t,x) = x^{\top}S(t)x + \int_t^T \mathrm{tr}(\sigma\sigma^{\top}S(r))dr\text{.}$$
 
 #### Riccati ODE and its Solution
 
