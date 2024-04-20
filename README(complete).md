@@ -24,6 +24,7 @@ In the end, he had to tackle this problem by delving into the fundamental mathem
 Consider the controlled process in space, expressed as
 
 
+
 $$
 dX_s = [HX_s + M \alpha_s]ds + \sigma dW_s , s\in[t,T],X_t = x \text{.} \nonumber
 $$
@@ -33,6 +34,7 @@ $$
 #### Objective
 
 Our aimed is to minimize
+
 
 
 $$
@@ -46,12 +48,15 @@ $$
 The optimal of the problem above is called value function, denoted as
 
 
+
 $$
 v(t,x) \coloneqq \inf \limits_{\alpha} J^\alpha(t,x) \text{.} \nonumber
 $$
 
 
+
 By solving Bellman PDE, we can obtain that
+
 
 
 $$
@@ -62,7 +67,8 @@ $$
 
 #### Riccati ODE and its Solution
 
-The function $S(t)$​​ in the expression of the value function above is the solution of Riccati ODE 
+The function $S(t)$​​​ in the expression of the value function above is the solution of Riccati ODE 
+
 
 
 $$
@@ -74,6 +80,7 @@ $$
 #### Optimal Control
 
 The corresponding optimal control is 
+
 
 
 $$
@@ -93,13 +100,16 @@ Substituting the optimal control $a(t,x) = -D^{-1}M^{\top}S(t)x$ back to the dyn
 - **Explicit Scheme**
 
   
+  
   $$
   \begin{align*}
   X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n}}^N-MD^{-1}M^{\top}S(t_n)X_{t_{n}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\ n &= k,\dots,N \text{,} \\\ X_{t_{k}}^N &= x.
   \end{align*} \nonumber
   $$
   
+  
 - **Implicit Scheme**
+  
   
   
   $$
@@ -116,6 +126,7 @@ Substituting the optimal control $a(t,x) = -D^{-1}M^{\top}S(t)x$ back to the dyn
 For the two schemes above, we can rewrite them in matrices.
 
 Denote the coefficient matrices as follows:
+
 
 
 $$
@@ -158,6 +169,7 @@ $$
 where
 
 
+
 $$
 z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}. \nonumber
 $$
@@ -165,6 +177,7 @@ $$
 
 
 Denote new coefficient matrices for combination:
+
 
 
 $$
@@ -204,7 +217,9 @@ z_{2,t_{n}}^N
 $$
 
 
-Let $k = 1$​​, then we can construct the whole matrix system as follows:
+
+Let $k = 1$​​​, then we can construct the whole matrix system as follows:
+
 
 
 $$
@@ -212,7 +227,9 @@ $$
 $$
 
 
+
 where
+
 
 
 $$
@@ -313,12 +330,15 @@ $$
 where
 
 
+
 $$
 z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}. \nonumber
 $$
 
 
+
 Denote new coefficient matrices for combination:
+
 
 
 $$
@@ -361,7 +381,8 @@ $$
 
 
 
-Let $k = 1$​​, then we can construct the whole matrix system as follows:
+Let $k = 1$​​​, then we can construct the whole matrix system as follows:
+
 
 
 $$
@@ -369,7 +390,9 @@ $$
 $$
 
 
+
 where
+
 
 
 $$
@@ -421,6 +444,7 @@ B_{\mathrm{I},N,2}
 $$
 
 
+
 ### Block Matrix Inversion
 
 #### Basic Idea
@@ -428,6 +452,7 @@ $$
 For a full-rank matrix, if partitioned into four blocks, then it can be inverted blockwise, which will finally generate a recursion chain.
 
 In general, matrix inversion by partition can be expressed as:
+
 
 
 $$
@@ -444,11 +469,13 @@ $$
 $$
 
 
+
 which means we can first compute $\Delta^{-1}$, then solve the sub-inversion $(\Sigma - \Xi \Delta^{-1} \Lambda)^{-1}$, where we can partition again and again. These steps will form a whole recursion.
 
 #### The Second Level for Partitioning the Computation Workload
 
-An ideal way to partition the workload at a higher level is to consider the characteristics of the problem itself, and for each time take the upper left square part with the row number to the multiple of the dimension of $X_t$. Take the $\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)}$​​ for instance. We can partition it as below,
+An ideal way to partition the workload at a higher level is to consider the characteristics of the problem itself, and for each time take the upper left square part with the row number to the multiple of the dimension of $X_t$. Take the $\mathbb{A}_{\mathrm{I}}^{(2N \times 2N)}$​​​ for instance. We can partition it as below,
+
 
 
 $$
@@ -470,7 +497,9 @@ $$
 $$
 
 
-Next, we solve the first upper-left square problem by solving its inversion by block inversion. Then, we obtain the first $(2 \times 1)$ section of $\mathbb{X}^{(2N \times 1)}$​​ by
+
+Next, we solve the first upper-left square problem by solving its inversion by block inversion. Then, we obtain the first $(2 \times 1)$ section of $\mathbb{X}^{(2N \times 1)}$​​​ by
+
 
 
 $$
@@ -500,13 +529,15 @@ B_{\mathrm{I},2,2}
 $$
 
 
+
 When dealing with the next block, to keep the correctness, we should change the first terms of the next section of $\mathbb{B}_{\mathrm{I}}^{(2N \times 1)}$ by **massaging a little bit** with the tail of the last solution piece of $\mathbb{X}^{(2N \times 1)}$.
 
 It is probably noticed that the matrix problem with $2$ **time steps** as described essentially duplicates the behavior of the most elementary iteration,  which tackles just $1$ **time step** at a time. However, the advantage of using matrix representation is that it allows us to effortlessly scale the number of time steps we wish to solve simultaneously to virtually any extent. This flexibility enables us to really push our computer to its limits, effectively making it sweat by working at its maximum capacity 😈.
 
 #### Additional Observation
 
-By expanding the second dimension of $\mathbb{B}$ and thus $\mathbb{X}$​​, for example,
+By expanding the second dimension of $\mathbb{B}$ and thus $\mathbb{X}$​​​, for example,
+
 
 
 $$
@@ -594,6 +625,7 @@ B_{\mathrm{I}}^{N,\texttt{sample\_size}}\\\
 \\\
 \end{matrix} \right]\end{matrix}\right],\end{align*} \nonumber
 $$
+
 
 
 we can now scale the sampling batch size as well! 🥳
