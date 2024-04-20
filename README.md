@@ -22,32 +22,43 @@ In the end, he had to tackle this problem by delving into the fundamental mathem
 #### Dynamic
 
 Consider the controlled process in space, expressed as
-$$dX_s = [HX_s + M \alpha_s]ds + \sigma dW_s , s\in[t,T],X_t = x \text{.}$$
+$$
+dX_s = [HX_s + M \alpha_s]ds + \sigma dW_s , s\in[t,T],X_t = x \text{.} \nonumber
+$$
 
 
 #### Objective
 
 Our aimed is to minimize
-$$J^\alpha(t,x) \coloneqq \mathbb{E}^{t,x}\left[\int_t^T(X^{\top}_sCX_s +\alpha^{\top}_sD\alpha_s)ds + X^{\top}_TRX_T \right]\text{.}$$
+$$
+J^\alpha(t,x) \coloneqq \mathbb{E}^{t,x}\left[\int_t^T(X^{\top}_sCX_s +\alpha^{\top}_sD\alpha_s)ds + X^{\top}_TRX_T \right]\text{.} \nonumber
+$$
 
 #### (Optimal) Value Function
 
 The optimal of the problem above is called value function, denoted as 
-$$v(t,x) \coloneqq \inf \limits_{\alpha} J^\alpha(t,x) \text{.}$$
+$$
+v(t,x) \coloneqq \inf \limits_{\alpha} J^\alpha(t,x) \text{.}
+$$
 By solving Bellman PDE, we can obtain that
-$$v(t,x) = x^{\top}S(t)x + \int_t^T \mathrm{tr}(\sigma\sigma^{\top}S(r))dr\text{.}$$
+$$
+v(t,x) = x^{\top}S(t)x + \int_t^T \mathrm{tr}(\sigma\sigma^{\top}S(r))dr\text{.}
+$$
+
 
 #### Riccati ODE and its Solution
 
-The function $S(t)$ in the expression of the value function above is the solution of Riccati ODE 
-
-$$\begin{align*} \frac{dS(r)}{dr} &= -(S(r)H+H^{\top} S(r)) + S(r)MD^{-1}M^{\top}S(r) - C ,r \in [t,T] \text{,} \\\ S(T) & =  R \text{.}\end{align*} $$
+The function $S(t)$​ in the expression of the value function above is the solution of Riccati ODE 
+$$
+\begin{align*} \frac{dS(r)}{dr} &= -(S(r)H+H^{\top} S(r)) + S(r)MD^{-1}M^{\top}S(r) - C ,r \in [t,T] \text{,} \\\ S(T) & =  R \text{.}\end{align*}
+$$
 
 #### Optimal Control
 
 The corresponding optimal control is 
-
-$$a(t,x) = -D^{-1}M^{\top}S(t)x \text{.}$$
+$$
+a(t,x) = -D^{-1}M^{\top}S(t)x \text{.}
+$$
 
 ### Monte Carlo Verification
 
@@ -57,22 +68,24 @@ We can bilaterally verify part of the code for Monte Carlo simulation and the pa
 
 Substituting the optimal control $a(t,x) = -D^{-1}M^{\top}S(t)x$ back to the dynamic of $X_s$, and choose Euler as our discretizing numerical scheme to operate Monte Carlo, we'll get the formulae for iteration as follows:
 
-- Explicit Scheme
+- **Explicit Scheme**
+  $$
+  \begin{align*}
+  X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n}}^N-MD^{-1}M^{\top}S(t_n)X_{t_{n}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\ n &= k,\dots,N \text{,} \\\ X_{t_{k}}^N &= x.
+  \end{align*}
+  $$
 
-$$\begin{align*}
-X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n}}^N-MD^{-1}M^{\top}S(t_n)X_{t_{n}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\ n &= k,\dots,N \text{,} \\\ X_{t_{k}}^N &= x.
-\end{align*}$$
-
-- Implicit Scheme
-
-$$\begin{align*}
-X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n+1}}^N-MD^{-1}M^{\top}S(t_{n+1})X_{t_{n+1}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\
-n &= k,\dots,N \text{,} \\\ X_{t_{k}}^N &= x.
-\end{align*}$$
+- **Implicit Scheme**
+  $$
+  \begin{align*}
+  X_{t_{n+1}}^N &= X_{t_{n}}^N + \tau [HX_{t_{n+1}}^N-MD^{-1}M^{\top}S(t_{n+1})X_{t_{n+1}}^N] + \sigma (W_{t_{n+1}}-W_{t_{n}}) \text{,} \\\
+  n &= k,\dots,N \text{,} \\\ X_{t_{k}}^N &= x.
+  \end{align*}
+  $$
 
 #### Iteration Equation System in Matrix Form
 
-For the two schemes above, we can derive their forms in matrices.
+For the two schemes above, we can rewrite them in matrices.
 
 Denote the coefficient matrices as follows:
 
@@ -80,69 +93,59 @@ $$
 \begin{align*} I &= \left[\begin{matrix} 1 & 0 \\\ 0 & 1 \end{matrix}\right], & H &= \left[\begin{matrix} H_{11} & H_{12} \\\ H_{21} & H_{22} \end{matrix}\right], & M &= \left[ \begin{matrix} M_{11} & M_{12}\\\ M_{21} & M_{22} \end{matrix}\right], \\\  D^{-1} &= \left[\begin{matrix} D_{11} & D_{12} \\\ D_{21} & D_{22}\end{matrix}\right]^{-1}, & {S(\lambda )} &= \left[\begin{matrix} S_{11}(\lambda ) & S_{12}(\lambda ) \\\ S_{21}(\lambda ) & S_{22}(\lambda ) \end{matrix}\right], & \sigma &= \left[\begin{matrix} \sigma _{11} & \sigma _{12} \\\ \sigma _{21} & \sigma _{22} \end{matrix}\right]. \end{align*}
 $$
 
-- Explicit Scheme
+- **Explicit Scheme**
 
-$$\begin{align*}
-\left[
-\begin{matrix}
-x_{1,t_{n+1}}^N \\\
-x_{2,t_{n+1}}^N
-\end{matrix}
+$$
+\begin{align*}
+\left[\begin{matrix} x_{1,t_{n+1}}^N \\\ x_{2,t_{n+1}}^N \end{matrix}
 \right]
 &=
-\left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right]\left[
-\begin{matrix}
+\left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right]
+\left[\begin{matrix}
 x_{1,t_{n}}^N \\\
 x_{2,t_{n}}^N
-\end{matrix}
-\right] + \sqrt{\tau} \sigma \left[
-\begin{matrix}
+\end{matrix}\right] + \sqrt{\tau} \sigma 
+\left[\begin{matrix}
 z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
-\end{matrix}
-\right], \\\
+\end{matrix}\right], \\\
 n &= k,\dots,N \text{,} \\\
 
-\left[
-\begin{matrix}
+\left[\begin{matrix}
 x_{1,t_{k}}^N \\\
-x_{2,t_{k}}^N
-\end{matrix}
-\right] & = \left[
-\begin{matrix}
+x_{2,t_{k}}^N\end{matrix}\right] & = \left[\begin{matrix}
 x_{1} \\\
 x_{2}
-\end{matrix}
-\right],
-\end{align*}$$
+\end{matrix}\right],
+\end{align*}
+$$
+
 where
-
-$$z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.$$
-
+$$
+z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.
+$$
 Denote new coefficients matrix for combination:
-
-$$\begin{align*}
+$$
+\begin{align*}
 A_{\mathrm{E},n} & = \left[
 \begin{matrix}
 A_{\mathrm{E},n,11} & A_{\mathrm{E},n,12}\\\
 A_{\mathrm{E},n,21} & A_{\mathrm{E},n,22}
 \end{matrix}
-\right]
-
-\coloneqq \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right],\ \ n = k,\dots,N \text{,}\\\
-B_{\mathrm{E},n} & = \left[
+\right] \coloneqq \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right], \quad \quad \ \ \ n = k,\dots,N \text{,}\\\
+B_{\mathrm{E},n} & = \quad \quad \left[
 \begin{matrix}
 B_{\mathrm{E},n,1} \\\
 B_{\mathrm{E},n,2}
 \end{matrix}
-\right] \coloneqq 
+\right]\quad \ \ \ \  \ \coloneqq \quad
 \left\{ 
 \begin{aligned}
 &&&\left[\begin{matrix}
 x_{1} \\\
 x_{2}
 \end{matrix}
-\right]& \mathrm{for }& \ \ n = k \\\
+\right],\quad& \ \ n &= k \\\
 &&\tau&\left[\begin{matrix}
 \sigma_{11} & \sigma_{12} \\\
 \sigma_{21} & \sigma_{22}
@@ -152,33 +155,36 @@ x_{2}
 z_{1,t_{n}}^N \\\
 z_{2,t_{n}}^N
 \end{matrix}
-\right]& \mathrm{for}& \ \ n = k+1,\dots,N
+\right], & \ \ n &= k+1,\dots,N
 \end{aligned} \right.
 \text{.}
-\end{align*}$$
-
-Let $k = 1$, then we can construct the whole matrix system as follows:
-
-$$\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} \mathbb{X}^{(2N \times 1)} = \mathbb{B}_{\mathrm{E}}^{(2N \times 1)},$$
-
+\end{align*}
+$$
+Let $k = 1$​, then we can construct the whole matrix system as follows:
+$$
+\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} \mathbb{X}^{(2N \times 1)} = \mathbb{B}_{\mathrm{E}}^{(2N \times 1)},
+$$
 where
+$$
+\begin{align*}
 
-$$\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} = 
+\mathbb{A}_{\mathrm{E}}^{(2N \times 2N)} & = 
 \left[
 \begin{matrix}
 1 & 0 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
 0 & 1 & 0 & 0 & 0 & 0 & \dots & 0 & 0 & 0 & 0\\\
+
 - A_{\mathrm{E},1,11} & - A_{\mathrm{E},1,12} & 1 & 0 & 0 & 0 &\dots & 0 & 0 & 0 & 0\\\
 - A_{\mathrm{E},1,21} & - A_{\mathrm{E},1,22} & 0 & 1 & 0 & 0 &\dots & 0 & 0 & 0 & 0 \\\
-0 & 0 & - A_{\mathrm{E},2,11} & - A_{\mathrm{E},2,12} & 1 & 0 & \dots & 0 & 0 & 0 & 0\\\
-0 & 0 & - A_{\mathrm{E},2,21} & - A_{\mathrm{E},2,22} & 0 & 1 & \dots & 0 & 0 & 0 & 0\\\
-\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\\
-0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,11} & - A_{\mathrm{E},N-1,12} & 1 & 0 \\\
-0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,21} & - A_{\mathrm{E},N-1,22} & 0 & 1
-\end{matrix}
-\right],$$
-
-$$\mathbb{X}^{(2N \times 1)} = 
+  0 & 0 & - A_{\mathrm{E},2,11} & - A_{\mathrm{E},2,12} & 1 & 0 & \dots & 0 & 0 & 0 & 0\\\
+  0 & 0 & - A_{\mathrm{E},2,21} & - A_{\mathrm{E},2,22} & 0 & 1 & \dots & 0 & 0 & 0 & 0\\\
+  \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\\
+  0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,11} & - A_{\mathrm{E},N-1,12} & 1 & 0 \\\
+  0 & 0 & 0 & 0 & 0 & 0 & \dots & - A_{\mathrm{E},N-1,21} & - A_{\mathrm{E},N-1,22} & 0 & 1
+  \end{matrix}
+  \right], \\\
+  
+  \mathbb{X}^{(2N \times 1)} &= 
 \left[
 \begin{matrix}
 x_{1,t_{1}}^N \\\
@@ -192,7 +198,7 @@ x_{1,t_{N}}^N \\\
 x_{2,t_{N}}^N 
 \end{matrix}
 \right],
-\qquad \qquad
+\qquad \qquad \qquad \qquad \qquad 
 \mathbb{B}_{\mathrm{E}}^{(2N \times 1)} = 
 \left[
 \begin{matrix}
@@ -206,12 +212,14 @@ B_{\mathrm{E},3,2} \\\
 B_{\mathrm{E},N,1} \\\
 B_{\mathrm{E},N,2} 
 \end{matrix}
-\right],$$
+\right].
+  \end{align*}
+$$
 
-- Implicit Scheme
+- **Implicit Scheme**
 
-
-$$\begin{align*}
+$$
+\begin{align*}
 \left[I - \tau[H-MD^{-1}M^{\top}S(t_n)]\right]\left[
 \begin{matrix}
 x_{1,t_{n+1}}^N \\\
@@ -243,12 +251,55 @@ x_{1} \\\
 x_{2}
 \end{matrix}
 \right],
-\end{align*}$$
+\end{align*}
+$$
+
+
 where
-
-$$z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.$$
-
+$$
+z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.
+$$
 Denote new coefficients matrix for combination:
+$$
+\begin{align*}
+A_{\mathrm{I},n} & = \left[
+\begin{matrix}
+A_{\mathrm{I},n,11} & A_{\mathrm{I},n,12}\\\
+A_{\mathrm{I},n,21} & A_{\mathrm{I},n,22}
+\end{matrix}
+\right]
+\coloneqq \left[I - \tau[H-MD^{-1}M^{\top}S(t_n)]\right], n &= k,\dots,N , \\\
+
+B_{\mathrm{I},n} & = \left[
+\begin{matrix}
+B_{\mathrm{I},n,1} \\\
+B_{\mathrm{I},n,2}
+\end{matrix}
+\right] \coloneqq 
+
+\left\{ 
+\begin{aligned}
+&&&\left[\begin{matrix}
+x_{1} \\\
+x_{2}
+\end{matrix}
+\right]& \mathrm{for } & \ \ n = k \\\
+&&\tau&\left[\begin{matrix}
+\sigma_{11} & \sigma_{12} \\\
+\sigma_{21} & \sigma_{22}
+\end{matrix}
+\right]\left[
+\begin{matrix}
+z_{1,t_{n}}^N \\\
+z_{2,t_{n}}^N
+\end{matrix}
+\right]&  \mathrm{for} &\ \ n = k+1,\dots,N
+\end{aligned} \right.
+\text{.}
+
+\end{align*}
+$$
+
 
 $$\begin{align*}
 A_{\mathrm{I},n} & = \left[
