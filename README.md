@@ -122,37 +122,28 @@ $$z_{i,t_n}^N \sim \mathcal{N}(0,1), \quad \forall\ i \in \{1,2\}.$$
 
 Denote new coefficients matrix for combination:
 
-$$\begin{align*}
-A_{\mathrm{E},n} & = \left[
+$$\begin{align*} A_{\mathrm{E},n} & = \left[
 \begin{matrix}
-A_{\mathrm{E},n,11} & A_{\mathrm{E},n,12}\\\
-A_{\mathrm{E},n,21} & A_{\mathrm{E},n,22}
-\end{matrix}
+A_{\mathrm{E},n,11} & A_{\mathrm{E},n,12} \\\ A_{\mathrm{E},n,21} & A_{\mathrm{E},n,22} \end{matrix}
 \right]
-
-\coloneqq \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right],\ \ n = k,\dots,N \text{,}\\\
-B_{\mathrm{E},n} & = \left[
+\coloneqq \left[I + \tau[H-MD^{-1}M^{\top}S(t_n)]\right],\ \ n = k,\dots,N \text{,}\\\ B_{\mathrm{E},n} & = \left[
 \begin{matrix}
-B_{\mathrm{E},n,1} \\\
-B_{\mathrm{E},n,2}
-\end{matrix}
+B_{\mathrm{E},n,1} \\\B_{\mathrm{E},n,2}
+\en d{matrix}
 \right] \coloneqq 
 
 \left\{ 
 \begin{aligned}
 &&\left[\begin{matrix}
-x_{1} \\\
-x_{2}
+x_{1} \\\ x_{2}
 \end{matrix}
 \right]& & &\mathrm{for } \ \ n = k \\\
 &\tau&\left[\begin{matrix}
-\sigma_{11} & \sigma_{12} \\\
-\sigma_{21} & \sigma_{22}
+\sigma_{11} & \sigma_{12} \\\ \sigma_{21} & \sigma_{22}
 \end{matrix}
 \right]&\left[
 \begin{matrix}
-z_{1,t_{n}}^N \\\
-z_{2,t_{n}}^N
+z_{1,t_{n}}^N \\\ z_{2,t_{n}}^N
 \end{matrix}
 \right]& & \mathrm{for} \ \ n = k+1,\dots,N
 \end{aligned} \right.
