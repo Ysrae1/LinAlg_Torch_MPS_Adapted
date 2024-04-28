@@ -53,7 +53,7 @@ if __name__=='__main__':
 
     H = torch.tensor([[0.9, 0.8], [-0.6, 0.9]], dtype=torch.float32, device = device)
     M = torch.tensor([[0.5,0.7], [0.3,1.0]], dtype=torch.float32, device = device)
-    sig = torch.tensor([[10,5],[0.1,11]], dtype=torch.float32, device = device) 
+    sig = torch.tensor([[2,1.1],[0.4,1.6]], dtype=torch.float32, device = device) 
     C = torch.tensor([[1.6, 0.0], [0.0, 1.1]], dtype=torch.float32, device = device) 
     D = torch.tensor([[0.5, 0.0], [0.0, 0.7]], dtype=torch.float32, device = device)  
     R = torch.tensor([[0.9, 0.0], [0.0, 1.0]], dtype=torch.float32, device = device)  
@@ -64,7 +64,7 @@ if __name__=='__main__':
     n = 5000
 
     sample_size = 25000
-    Runs = 4
+    Runs = 12 # Modify the total sample size here.
 
     time_grid = torch.linspace(t0, T, n, dtype = torch.float32, device = device) # for both MC and Riccati.
 
@@ -75,21 +75,22 @@ if __name__=='__main__':
     print("状态过程模拟结果文件最后将被" + "删除。" if del_result else "保留。" )
     print("State process simulation results will be " + "deleted in the end.\n" if del_result else "saved in the end.\n")
 
-    print("开始 LQR solver 初始化 ...", end=' ')
+    print("Initializing LQR solver ...", end=' ')
+    
 
     s_time = time.time()
 
     LQR_sol = LQRSol(H, M, sig, C, D, R, T, n, 'euler',device = device)
 
-    print(f"({time.time() - s_time :.6f} 秒) 完成初始化。\n")
+    print(f"({time.time() - s_time :.6f} s) done. \n")
     
-    print("开始计算 S ...", end=' ')
+    print("Computing S ...", end=' ')
 
     s_time = time.time()
 
     S = LQR_sol.riccati_solver(time_grid.unsqueeze(0))
 
-    print(f"({time.time() - s_time :.6f} 秒) 完成计算。\n")
+    print(f"({time.time() - s_time :.6f} s) done. \n")
 
     X0 = 1*torch.ones([1,1,2], dtype=torch.float32, device = device)
 
@@ -113,7 +114,9 @@ if __name__=='__main__':
 
     os.makedirs(path, exist_ok=True)
 
-    print(f"在 {device_MC} 上开始 Monte Carlo 模拟，时间步为 {n} ，样本量为 {sample_size} 。 (求解线性方程组 Ax=b) ... \n")
+    print(f"Starting Monte Carlo simulation on {device_MC} . \n\nTime step is {n} , total sample size is {sample_size*Runs} . \nSeperated in {Runs} runs of computation. \n")
+    
+    print("Solving linear system Ax=b ... \n")
 
     s_time = time.time()
 
@@ -142,7 +145,7 @@ if __name__=='__main__':
                                 AA_0)
 
 
-        print(f'Run {run+1}/{Runs} is done. ({time.time() - s_i_time :.6f} seconds)')
+        print(f'Run {run+1}/{Runs} is done. ({time.time() - s_i_time :.6f} s)')
         torch.save(X_0_N1, path + f'X1_{run}.pt')
 
         del MCSim
@@ -154,41 +157,34 @@ if __name__=='__main__':
 
     print(f"\n完成了 {Runs} 次 {2*n}x{2*n} 线性方程组 Ax=b 的求解（{e_time} 秒）。\n（求 A_inv 并进行矩阵乘法 A_inv @ b {2*n}x{sample_size} 的向量）\n")
 
-    print(f"Solving finished. (in {e_time} seconds) Done the following works:\n 1. the inverse of A ({2*n}x{2*n} matrix) \n 2. the matrix multiplication A_inv @ b ({2*n}x{sample_size} vector)")
+    print(f"All runs of computation finished. (in {e_time} s). In each run the following works were done:\n 1. the inverse of A ({2*n}x{2*n} matrix) \n 2. the matrix multiplication A_inv @ b ({2*n}x{sample_size} vector)")
 
-    print("开始求解 J ...",end=' ')
+    print("Computing J ...",end=' ')
 
     s_time = time.time()
 
     J1 = torch.zeros(sample_size*Runs)
-    # J2 = torch.zeros(sample_size*Runs)
 
     J1_means = torch.zeros(Runs)
-    # J2_means = torch.zeros(Runs)
 
     MCSim = MonteCarlo_H(A,t0,X0,T,n,dt,sig,sample_size,scheme = scheme,device=device)
 
     for run in range(Runs):
 
         X1_res = torch.load(path + f'X1_{run}.pt').cpu()
-        # X2_res = torch.load(path + f'X2_{run}.pt')
 
         X1_i = X1_res.T.reshape([sample_size,n,1,2])
-        # X2_i = X2_res.T.reshape([sample_size,n,1,2])
 
         J1[run*sample_size:(run+1)*sample_size] = MCSim.J_computation(X1_i, multa,C,D,R).squeeze()
-        # J2[run*sample_size:(run+1)*sample_size] = MCSim.J_computation(X2_i, multa,C,R).squeeze()
 
         J1_means[run] = torch.mean(J1[run*sample_size:(run+1)*sample_size])
-        # J2_means[run] = torch.mean(J2[run*sample_size:(run+1)*sample_size])
 
-    print(f'({time.time() - s_time:.6f} 秒) 完成。')
+    print(f'({time.time() - s_time:.6f} s) done.')
 
-    print('J means          是 ', J1_means)
+    print('J means of each run     is ', J1_means)
+    print('J means of total sample is ', torch.mean(J1_means))
 
-    # print('J2 means 是 ', J2_means)
-
-    print('Value function   是 ', LQR_sol.value_function(t0.unsqueeze(0),X0))
+    print('Value function          is ', LQR_sol.value_function(t0.unsqueeze(0),X0))
 
     if del_result:
         if os.path.exists(path):
