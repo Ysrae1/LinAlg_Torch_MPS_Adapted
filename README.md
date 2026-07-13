@@ -9,6 +9,48 @@ This program is a self-entertaining game of pushing the computation performance 
 
 A SUPER fast solution for processing Monte Carlo simulations with a high computational cost is built, which you can find in the `MC_HYPERFAST.py`.
 
+## Installation and Running
+
+The following environment has been verified on Apple Silicon with Python 3.12:
+
+- NumPy 2.4.6
+- SciPy 1.18.0
+- PyTorch 2.12.1
+
+Create and activate a dedicated Conda environment:
+
+```bash
+conda create -n linalg-modern python=3.12 -y
+conda activate linalg-modern
+
+python -m pip install \
+  "numpy==2.4.6" \
+  "scipy==1.18.0" \
+  "torch==2.12.1"
+```
+
+Verify the installation and confirm that the MPS backend is available:
+
+```bash
+python -c "import numpy, scipy, torch; print('NumPy:', numpy.__version__); print('SciPy:', scipy.__version__); print('PyTorch:', torch.__version__); print('MPS:', torch.backends.mps.is_available())"
+python -m pip check
+```
+
+Run the simulation from the project directory:
+
+```bash
+cd /Users/ysrae1/Dev/LinAlg_Torch_MPS_Adapted
+python MC_HYPERFAST.py
+```
+
+The default simulation is computationally and memory intensive. For an initial smoke test, reduce `n`, `sample_size`, and `Runs` in `MC_HYPERFAST.py` before running it.
+
+When finished, return to the Conda base environment:
+
+```bash
+conda activate base
+```
+
 ## Main Purpose
 
 The main purpose of this program for the author is to make the most of his computation resources at hand (which though was swiftly overtaken by its successors 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️). The numerical example used to tap into his computer’s computational power is drawn from coursework in Stochastic Control and Dynamic Asset Allocation at the University of Edinburgh, 2024.
